@@ -36,7 +36,7 @@
   --mono:'JetBrains Mono',ui-monospace,Menlo,Consolas,monospace;
   --nav:rgba(255,255,255,.94); --veil-a:rgba(255,255,255,.95); --veil-b:rgba(255,255,255,.86); --veil-c:rgba(255,255,255,.4); --veil-0:rgba(255,255,255,0);
   --wash:rgba(255,255,255,.42); --head-bg:rgba(255,255,255,.88); --sc-fb:#EAF1E0; --art-1:#FBF7EE; --art-2:#F1ECDF; --pill:rgba(255,255,255,.9);
-  --gl:max(16px,env(safe-area-inset-left,0px)); --gr:max(16px,env(safe-area-inset-right,0px));
+  --gl:max(clamp(16px,4vw,56px),env(safe-area-inset-left,0px)); --gr:max(clamp(16px,4vw,56px),env(safe-area-inset-right,0px));
   color-scheme:light;
 }
 @media (prefers-color-scheme: dark){:root:not([data-theme="light"]){
@@ -74,7 +74,7 @@ button{cursor:pointer;border:0;background:none;padding:0}
 a{color:inherit}
 :focus-visible{outline:2.5px solid var(--me);outline-offset:2px;border-radius:6px}
 .mono{font-family:var(--mono);font-weight:600;letter-spacing:.02em;font-variant-numeric:tabular-nums}
-.wrap{max-width:1200px;margin:0 auto;padding-left:var(--gl);padding-right:var(--gr)}
+.wrap{max-width:1440px;margin:0 auto;padding-left:var(--gl);padding-right:var(--gr)}
 .eyebrow{display:inline-flex;align-items:center;gap:8px;font-size:.78em;font-weight:700;letter-spacing:.09em;text-transform:uppercase;color:var(--me)}
 .eyebrow::before{content:"";width:18px;height:2px;border-radius:2px;background:currentColor}
 .note{font-size:.84em;color:var(--muted)}
@@ -98,7 +98,8 @@ a{color:inherit}
 /* ---------- nav ---------- */
 .l-nav{position:sticky;top:env(safe-area-inset-top,0px);z-index:40;background:var(--nav);border-bottom:1px solid transparent;transition:border-color .2s,box-shadow .2s}
 .l-nav.solid{border-color:var(--line);box-shadow:0 8px 24px -20px rgba(42,27,18,.4)}
-.nav-in{display:flex;align-items:center;gap:18px;height:70px}
+.nav-in{display:flex;align-items:center;gap:18px;height:74px}
+.l-tools .btn{white-space:nowrap}
 .logo{display:flex;align-items:center;gap:10px;text-decoration:none;color:var(--ink);line-height:1}
 .logo img{width:44px;height:41px;object-fit:contain}
 .logo b{font-family:var(--body);font-weight:800;font-size:1.12em;letter-spacing:.04em}
@@ -106,13 +107,13 @@ a{color:inherit}
 .logo b em{font-style:normal;color:var(--me)}
 .logo small{display:block;font-size:.66em;font-weight:500;color:var(--muted);letter-spacing:.02em;margin-top:4px}
 .l-links{display:flex;gap:2px;margin-left:auto}
-.l-links a{padding:8px 11px;border-radius:10px;text-decoration:none;color:var(--ink-2);font-size:.9em;font-weight:500}
+.l-links a{padding:8px 10px;border-radius:10px;text-decoration:none;color:var(--ink-2);font-size:.9em;font-weight:500;white-space:nowrap}
 .l-links a:hover{background:var(--bg-2);color:var(--ink)}
 .l-tools{display:flex;gap:8px;align-items:center}
 .l-burger{display:none}
 .l-mob{display:none}
 @media (max-width:480px){.logo small{display:none}.logo img{width:38px;height:35px}.nav-in{gap:10px}.l-tools{gap:6px}}
-@media (max-width:1060px){
+@media (max-width:1280px){
   .l-links{display:none}
   .l-tools{margin-left:auto}
   .l-burger{display:inline-grid}
@@ -213,12 +214,12 @@ textarea.inp{min-height:76px;resize:vertical}
 .chip.g{background:var(--tag-2);color:var(--tag-ink)}
 
 /* sản phẩm */
-.prod{background:var(--glass);border:1px solid var(--line);border-radius:18px;overflow:hidden;display:grid;grid-template-rows:auto 1fr;box-shadow:var(--shadow);min-width:0}
-.prod .art{height:190px;position:relative;overflow:hidden;background:radial-gradient(80% 90% at 50% 40%,var(--art-1),var(--art-2))}
+.prod{background:var(--glass);border:1px solid var(--line);border-radius:18px;overflow:hidden;display:flex;flex-direction:column;box-shadow:var(--shadow);min-width:0}
+.prod .art{flex:0 0 190px;height:190px;max-height:190px;position:relative;overflow:hidden;contain:strict;isolation:isolate;background:radial-gradient(80% 90% at 50% 40%,var(--art-1),var(--art-2))}
 .prod .art svg{position:absolute;inset:0;margin:auto;height:86%;width:auto;max-width:90%}
 .prod .badge{position:absolute;z-index:1;top:12px;left:12px;font-size:.72em;font-weight:700;padding:4px 10px;border-radius:999px;background:var(--surface);border:1px solid var(--line)}
 .badge.g{color:var(--me)}.badge.r{color:var(--berry)}
-.prod-body{padding:16px 18px 18px;display:grid;gap:8px;grid-template-rows:auto auto 1fr auto}
+.prod-body{flex:1;padding:16px 18px 18px;display:grid;gap:8px;grid-template-rows:auto auto 1fr auto;position:relative;z-index:1;background:inherit}
 .prod-body h3{font-size:1.04em;line-height:1.3}
 .prod-body .sub{color:var(--ink-2);font-size:.88em}
 .prod-body ul{list-style:none;display:grid;gap:4px;font-size:.84em;color:var(--muted)}
@@ -293,7 +294,7 @@ textarea.inp{min-height:76px;resize:vertical}
 .map-pin.wait span{background:#C98A2B}
 .map-depot span{display:grid;place-items:center;width:34px;height:34px;border-radius:10px;background:#2A1B12;color:#B5DD66;font-size:18px;border:2px solid #fff;box-shadow:0 4px 10px rgba(0,0,0,.3)}
 .map-truck .tk{filter:drop-shadow(0 4px 6px rgba(0,0,0,.35))}
-.map-truck.west .tk{transform:scaleX(-1)}
+.map-truck .tk{width:40px;height:40px;will-change:transform}
 .map-lbl{font-family:var(--body);font-size:12px;font-weight:700;color:#4E7F95;white-space:nowrap;text-shadow:0 0 3px #fff}
 .leaflet-container{font-family:var(--body)}
 .leaflet-popup-content{font-size:13px;line-height:1.5;margin:10px 12px}
@@ -466,20 +467,77 @@ input[type=range]{width:100%;accent-color:var(--me);height:28px}
 @keyframes up{from{transform:translateY(24px);opacity:0}to{transform:none;opacity:1}}
 .toast{position:fixed;left:50%;bottom:calc(84px + env(safe-area-inset-bottom,0px));transform:translateX(-50%) translateY(16px);z-index:90;background:var(--ink);color:var(--bg);padding:12px 18px;border-radius:14px;font-weight:600;font-size:.9em;opacity:0;pointer-events:none;transition:.25s;max-width:calc(100vw - 32px);text-align:center}
 .toast.on{opacity:1;transform:translateX(-50%) translateY(0)}
-.ag{list-style:none;display:grid;gap:12px;counter-reset:ag}
-.ag li{display:grid;grid-template-columns:32px 1fr;gap:12px;align-items:start}
-.ag .n{width:32px;height:32px;border-radius:50%;background:var(--me);color:var(--on-me);display:grid;place-items:center;font-weight:700;font-size:.9em}
-.ag b{display:block}
-.ag small{color:var(--muted);font-size:.86em}
-.ag-mock{display:inline-flex;align-items:center;gap:6px;margin-top:6px;padding:6px 10px;border-radius:10px;background:var(--surface-2);border:1px solid var(--line);font-size:.82em;font-weight:600}
-.ag-mock svg{width:16px;height:16px}
 .warn{padding:12px 14px;border-radius:12px;background:var(--bean-2);color:var(--bean-ink);font-size:.9em}
 
+html.rm *{animation:none!important;transition:none!important;scroll-behavior:auto!important}
+.set-g{display:grid;gap:8px;padding:12px 0;border-top:1px solid var(--line-2)}
+.set-g:first-of-type{border-top:0}
+.set-g>b{font-size:.92em}
+.set-g .note{margin-top:-4px}
+.set-acc{display:flex;gap:12px;align-items:center;padding:12px;border-radius:14px;background:var(--surface-2)}
+.set-acc .av{width:44px;height:44px}
+.set-acc small{display:block;color:var(--muted);font-size:.82em}
+.seg button[aria-pressed=true]{background:var(--surface);color:var(--ink);box-shadow:var(--shadow)}
 @media (prefers-reduced-motion:reduce){
   html{scroll-behavior:auto}
   .mascot.live,.mascot.hop,.au-photo,.au-box,.inp.filled{animation:none}
   .mbox{animation:none}
 }
+
+/* ===== Tải app: hộp hướng dẫn iPhone / Android + nhắc theo loại máy ===== */
+#l-install{scroll-margin-top:96px}
+html.cf-standalone .cf-dl,html.cf-standalone .cf-nudge{display:none!important}
+.mbox.ag-wide{width:min(920px,100%)}
+.ag-head{display:flex;gap:16px;align-items:center;padding-right:40px}
+.ag-head img{width:62px;height:62px;border-radius:15px;flex:none;box-shadow:0 8px 20px -8px rgba(0,0,0,.4)}
+.ag-head h2{padding-right:0!important;font-size:1.5em!important}
+.ag-head b{display:block;font-size:1.08em}
+.ag-head p{color:var(--ink-2);font-size:.9em;margin-top:4px;line-height:1.5}
+.ag-link{display:flex;gap:12px;align-items:center;flex-wrap:wrap;padding:14px 16px;border-radius:16px;background:color-mix(in srgb,var(--me) 7%,var(--surface));border:1px solid var(--line)}
+.ag-link b{display:block}.ag-link span{display:block;color:var(--muted);font-size:.86em;margin-top:2px;line-height:1.5}
+.ag-link code{font-size:.86em;padding:3px 8px;border-radius:7px;background:var(--surface-2);overflow-wrap:anywhere}
+.ag-now{display:flex;gap:10px;align-items:center;flex-wrap:wrap;margin-top:14px}
+.ag-warn{margin-top:14px;padding:12px 14px;border-radius:14px;background:var(--bean-2);color:var(--bean-ink);font-size:.9em;line-height:1.5}
+.ag-cols{display:grid;grid-template-columns:1fr 1fr;gap:18px}
+.ag-col h3{display:flex;align-items:center;gap:8px;font-size:1.02em}.ag-col h3 svg{width:18px;height:18px}
+.ag-br{color:var(--muted);font-size:.84em;margin:2px 0 10px}
+.ag{list-style:none;display:grid;gap:10px;margin:0;padding:0}
+.ag li{display:grid;grid-template-columns:30px 1fr;gap:12px;align-items:start;padding:13px 14px;border:1px solid var(--line);border-radius:16px;background:var(--surface)}
+.ag .n{width:30px;height:30px;border-radius:50%;background:var(--me);color:var(--on-me);display:grid;place-items:center;font-weight:800;font-size:.88em}
+.ag b{display:block;line-height:1.35}
+.ag small{display:block;color:var(--muted);font-size:.84em;margin-top:3px;line-height:1.45}
+.ag-mock{display:inline-flex;align-items:center;gap:7px;margin-top:8px;padding:5px 10px;border-radius:10px;background:var(--surface-2);border:1px solid var(--line);font-weight:600;font-size:.84em}
+.ag-mock svg{width:17px;height:17px;color:#0A84FF;flex:none}
+.ag-more{border-top:1px solid var(--line);padding-top:12px}
+.ag-more>summary,.ag-faq>summary{cursor:pointer;font-weight:700;font-size:.92em}
+.ag-more .ag-col{margin-top:12px}
+.ag-faq{font-size:.88em;color:var(--ink-2)}.ag-faq p{margin-top:8px;line-height:1.6}
+.ag-ok{margin-top:6px;padding:14px;border-radius:14px;background:color-mix(in srgb,var(--me) 12%,var(--surface));font-weight:600}
+.ag-tabs{display:inline-flex;gap:4px;padding:4px;border-radius:999px;background:color-mix(in srgb,var(--ink) 7%,transparent);margin-top:18px;max-width:100%}
+.ag-tabs button{height:40px;padding:0 16px;border-radius:999px;font-weight:700;font-size:.9em;color:var(--ink-2);display:inline-flex;align-items:center;gap:7px;white-space:nowrap}
+.ag-tabs button[aria-selected="true"]{background:var(--me);color:var(--on-me)}
+.ag-tabs svg{width:15px;height:15px}
+[data-install] .ag-head{padding-right:0}
+[data-install] .ag-head img{width:64px;height:64px;border-radius:16px}
+[data-install] .ag{grid-template-columns:repeat(auto-fit,minmax(200px,1fr));margin-top:14px}
+[data-install] .ag li{background:color-mix(in srgb,var(--surface) 80%,transparent)}
+.l-install.flash{animation:li-flash 1.4s ease-out}
+@keyframes li-flash{0%{box-shadow:0 0 0 0 color-mix(in srgb,var(--me) 70%,transparent)}100%{box-shadow:0 0 0 18px transparent}}
+.cf-nudge{position:fixed;z-index:70;left:12px;right:12px;bottom:calc(16px + env(safe-area-inset-bottom,0px));max-width:430px;margin:0 auto;display:flex;align-items:center;gap:12px;padding:10px 10px 10px 12px;border-radius:20px;background:color-mix(in srgb,var(--surface) 97%,transparent);color:var(--ink);border:1px solid var(--line);box-shadow:0 16px 40px -16px rgba(0,0,0,.45);transform:translateY(20px);opacity:0;transition:.3s;font-size:14px}
+.cf-nudge.on{transform:none;opacity:1}
+body.in-app .cf-nudge{bottom:calc(84px + env(safe-area-inset-bottom,0px))}
+.cf-nudge.desk{left:20px;right:auto;bottom:20px;margin:0}
+body.in-app .cf-nudge.desk{bottom:20px}
+.cf-nudge img{width:42px;height:42px;border-radius:10px;flex:none}
+.cf-nudge b{display:block}.cf-nudge span{display:block;font-size:.84em;color:var(--muted)}
+.cf-nudge .go{margin-left:auto;flex:none}
+.cf-nudge .no{width:30px;height:30px;border-radius:50%;color:var(--muted);font-size:18px;flex:none}
+@media (max-width:720px){.ag-cols{grid-template-columns:1fr}
+  .cf-nudge{left:calc(max(18px,env(safe-area-inset-left,0px)) + 68px);right:12px;bottom:calc(18px + env(safe-area-inset-bottom,0px));max-width:none;font-size:13px;padding:8px 8px 8px 10px;gap:10px}
+  body.in-app .cf-nudge{left:12px;right:calc(max(18px,env(safe-area-inset-right,0px)) + 68px);bottom:calc(84px + env(safe-area-inset-bottom,0px))}
+  .cf-nudge img{width:36px;height:36px}.cf-nudge .no{width:26px}}
+@media (max-width:560px){.ag-head{align-items:flex-start}.ag-head img{width:48px;height:48px;border-radius:12px}.ag-head h2{font-size:1.25em!important}}
+@media (prefers-reduced-motion:reduce){.cf-nudge{transition:none}.l-install.flash{animation:none}}
 /* ================= APP (dashboard theo khung FreeTure) ================= */
 :root{--sb-bg:#1E2B16;--sb-ink:#EEF2E6;--sb-mute:#A9B89C;--sb-on:rgba(238,242,230,.12);--sb-mark:#B5DD66;--warn:#A8660B;--warn-2:#F8E9CC}
 @media (prefers-color-scheme: dark){:root:not([data-theme="light"]){--sb-bg:#0A0F0B;--sb-ink:#DCE7D6;--sb-mute:#86998A;--sb-on:rgba(220,231,214,.09);--sb-mark:#A6D45A;--warn:#E8B058;--warn-2:#35270F}}
@@ -511,7 +569,7 @@ body.in-app .sc-dots{display:none}
 .sb .btn-g:hover{background:var(--sb-on);opacity:1}
 .sb-scrim{display:none}
 .main{flex:1;min-width:0;display:flex;flex-direction:column}
-.topbar{position:sticky;top:env(safe-area-inset-top,0px);z-index:30;display:flex;align-items:center;gap:12px;padding:10px var(--gr) 10px 24px;background:var(--nav);border-bottom:1px solid var(--line)}
+.topbar{position:sticky;top:env(safe-area-inset-top,0px);z-index:30;display:flex;align-items:center;gap:12px;padding:12px clamp(18px,2.6vw,40px);min-height:72px;background:var(--nav);-webkit-backdrop-filter:blur(16px) saturate(140%);backdrop-filter:blur(16px) saturate(140%);border-bottom:1px solid var(--line)}
 .tb-title{min-width:0;flex:1}
 .tb-title h1{font-family:var(--display);font-size:1.45em;line-height:1.2;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
 .tb-title p{font-size:.84em;color:var(--muted);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
@@ -528,7 +586,7 @@ body.in-app .sc-dots{display:none}
 .ni.unread i{background:var(--me)}
 .ni b{font-weight:600;font-size:.9em;display:block}
 .ni small{color:var(--muted);font-size:.76em}
-.content{padding:24px var(--gr) 48px 24px;max-width:1240px;width:100%}
+.content{padding:clamp(20px,2.6vw,36px) clamp(18px,2.6vw,40px) 56px;max-width:1680px;width:100%;margin:0 auto}
 .bottom-nav{display:none}
 .pg{display:grid;gap:16px}
 .grid-2{display:grid;grid-template-columns:minmax(0,1.35fr) minmax(0,1fr);gap:16px;align-items:start}
@@ -623,8 +681,8 @@ body.in-app .sc-dots{display:none}
   .sb.open{transform:none}
   .sb-scrim.on{display:block;position:fixed;inset:0;z-index:45;background:rgba(0,0,0,.4)}
   .mb-menu{display:inline-grid}
-  .topbar{padding-left:var(--gl)}
-  .content{padding:16px var(--gr) calc(96px + env(safe-area-inset-bottom,0px)) var(--gl)}
+  .topbar{padding-left:16px;padding-right:16px}
+  .content{padding:18px 16px calc(100px + env(safe-area-inset-bottom,0px))}
   .bottom-nav{display:flex;position:fixed;left:0;right:0;bottom:0;z-index:40;background:var(--surface);border-top:1px solid var(--line);padding:6px var(--gr) calc(6px + env(safe-area-inset-bottom,0px)) var(--gl);justify-content:space-around}
   .bottom-nav button{flex:1;max-width:120px;display:grid;justify-items:center;gap:2px;padding:6px 2px;border-radius:12px;color:var(--muted);font-size:.68em;font-weight:600;position:relative}
   .bottom-nav button svg{width:22px;height:22px}
@@ -655,6 +713,25 @@ body.in-app .chat{left:auto;right:max(18px,env(safe-area-inset-right,0px))}
 .cart-line .th{position:relative;overflow:hidden}
 .cart-line .th img{position:absolute;inset:0;width:100%;height:100%;max-width:none;object-fit:cover}
 .cart-line .th img.contain{object-fit:contain;padding:4px}
+
+@media (min-width:1500px){.kpis{gap:16px}.grid-2{gap:20px}}
+
+.tb-tools{gap:10px}
+.tb-date{font-size:.84em;color:var(--muted);white-space:nowrap;padding:0 4px}
+.tb-cta{position:relative}
+.tb-cta svg{width:17px;height:17px}
+.tb-n{min-width:20px;height:20px;padding:0 6px;border-radius:999px;background:var(--on-me);color:var(--me);font-size:.78em;display:grid;place-items:center}
+.lang-seg button{min-height:34px;padding:0 11px;font-weight:700}
+.tb-me{display:flex;align-items:center;gap:10px;padding:4px 12px 4px 4px;border-radius:999px;border:1px solid var(--line);background:var(--surface);text-align:left}
+.tb-me .av{width:34px;height:34px}
+.tb-me b{display:block;font-size:.86em;line-height:1.2;white-space:nowrap}
+.tb-me small{display:block;font-size:.72em;color:var(--muted);white-space:nowrap}
+@media (max-width:1350px){.hide-lg{display:none}}
+@media (max-width:1180px){.hide-md{display:none}}
+
+.dash-install{margin-top:16px}
+.dash-install [data-install] .ag-head{display:none}
+.dash-install .ag-tabs{margin-top:4px}
 
 </style>
 </head>
@@ -1337,7 +1414,9 @@ svg.leaflet-image-layer.leaflet-interactive path {
         <a href="#l-road">Lộ trình</a>
       </div>
       <div class="l-tools">
-        <button class="btn btn-s btn-sm hide-md" type="button" data-act="guide"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 4v11"/><path d="M7 10l5 5 5-5"/><path d="M5 20h14"/></svg>Tải app</button>
+        <button class="btn btn-s btn-sm hide-md cf-dl" type="button" data-act="guide"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 4v11"/><path d="M7 10l5 5 5-5"/><path d="M5 20h14"/></svg>Tải app</button>
+        <div class="seg lang-seg hide-md" role="group" aria-label="Ngôn ngữ"><button type="button" data-lang="vi">VI</button><button type="button" data-lang="en">EN</button></div>
+        <button class="icon-btn hide-md" type="button" data-act="settings" aria-label="Cài đặt" title="Cài đặt"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"/><path d="M12 2v3M12 19v3M4.2 4.2l2.1 2.1M17.7 17.7l2.1 2.1M2 12h3M19 12h3M4.2 19.8l2.1-2.1M17.7 6.3l2.1-2.1"/></svg></button>
         <button class="icon-btn theme-ic" type="button" data-act="theme" aria-label="Đổi giao diện sáng / tối"><svg class="ic-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"><path d="M20 14.5A8 8 0 0 1 9.5 4a8 8 0 1 0 10.5 10.5z"/></svg><svg class="ic-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></svg></button>
         <button class="btn btn-p btn-sm" type="button" data-act="login" id="loginBtn">Đăng nhập</button>
         <button class="me-chip" type="button" data-act="acct" id="meChip" hidden aria-expanded="false"><span class="av" id="meAv">MA</span><span id="meName">—</span></button>
@@ -1355,6 +1434,7 @@ svg.leaflet-image-layer.leaflet-interactive path {
       <a href="#l-road">Lộ trình</a>
       <a href="#l-install">Tải app</a>
       <a href="#quickForm" style="color:var(--me)">Hẹn thu gom bã →</a>
+      <div style="display:flex;gap:8px;align-items:center;padding:8px 4px 2px;flex-wrap:wrap"><div class="seg lang-seg" role="group" aria-label="Ngôn ngữ"><button type="button" data-lang="vi">VI</button><button type="button" data-lang="en">EN</button></div><button class="btn btn-s btn-sm" type="button" data-act="settings">Cài đặt</button><button class="btn btn-s btn-sm" type="button" data-act="guide">Tải app</button></div>
     </div>
   </nav>
 
@@ -1376,7 +1456,7 @@ svg.leaflet-image-layer.leaflet-interactive path {
             <a class="btn btn-p" href="#l-shop"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"><path d="M4 8h16l-1.2 11.2a2 2 0 0 1-2 1.8H7.2a2 2 0 0 1-2-1.8z"/><path d="M8.5 8V6.5a3.5 3.5 0 0 1 7 0V8"/></svg>Xem kit STEM &amp; pin</a>
             <a class="btn btn-s" href="#l-cafe">Quán tôi muốn gửi bã</a>
           </div>
-          <button class="sc-dl" type="button" data-act="guide"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M16.4 12.6c0-2.3 1.9-3.4 2-3.5-1.1-1.6-2.8-1.8-3.4-1.8-1.4-.1-2.8.9-3.5.9-.7 0-1.8-.8-3-.8-1.5 0-3 .9-3.8 2.3-1.6 2.8-.4 7 1.2 9.3.8 1.1 1.7 2.4 2.9 2.3 1.2 0 1.6-.7 3-.7s1.8.7 3 .7c1.3 0 2.1-1.1 2.8-2.3.9-1.3 1.3-2.6 1.3-2.6s-2.5-1-2.5-3.8zM14.1 5.8c.6-.8 1.1-1.8 1-2.9-.9 0-2.1.6-2.7 1.4-.6.7-1.1 1.8-1 2.8 1 .1 2.1-.5 2.7-1.3z"/></svg><svg viewBox="0 0 24 24" fill="currentColor"><path d="M17.6 9.5l1.6-2.8a.4.4 0 0 0-.7-.4l-1.7 2.9A10 10 0 0 0 12 8.3c-1.7 0-3.3.3-4.8.9L5.5 6.3a.4.4 0 0 0-.7.4l1.6 2.8A9 9 0 0 0 2 16.6h20a9 9 0 0 0-4.4-7.1zM7.3 14a1 1 0 1 1 0-2 1 1 0 0 1 0 2zm9.4 0a1 1 0 1 1 0-2 1 1 0 0 1 0 2z"/></svg><span>Tải app cho iPhone và Android</span><b aria-hidden="true">→</b></button>
+          <button class="sc-dl cf-dl" type="button" data-act="guide"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M16.4 12.6c0-2.3 1.9-3.4 2-3.5-1.1-1.6-2.8-1.8-3.4-1.8-1.4-.1-2.8.9-3.5.9-.7 0-1.8-.8-3-.8-1.5 0-3 .9-3.8 2.3-1.6 2.8-.4 7 1.2 9.3.8 1.1 1.7 2.4 2.9 2.3 1.2 0 1.6-.7 3-.7s1.8.7 3 .7c1.3 0 2.1-1.1 2.8-2.3.9-1.3 1.3-2.6 1.3-2.6s-2.5-1-2.5-3.8zM14.1 5.8c.6-.8 1.1-1.8 1-2.9-.9 0-2.1.6-2.7 1.4-.6.7-1.1 1.8-1 2.8 1 .1 2.1-.5 2.7-1.3z"/></svg><svg viewBox="0 0 24 24" fill="currentColor"><path d="M17.6 9.5l1.6-2.8a.4.4 0 0 0-.7-.4l-1.7 2.9A10 10 0 0 0 12 8.3c-1.7 0-3.3.3-4.8.9L5.5 6.3a.4.4 0 0 0-.7.4l1.6 2.8A9 9 0 0 0 2 16.6h20a9 9 0 0 0-4.4-7.1zM7.3 14a1 1 0 1 1 0-2 1 1 0 0 1 0 2zm9.4 0a1 1 0 1 1 0-2 1 1 0 0 1 0 2z"/></svg><span>Tải app cho iPhone và Android</span><b aria-hidden="true">→</b></button>
         </div>
         <div class="hero-card">
           <span class="mascot mascot-hero live" id="heroMascot" role="img" aria-label="Sprouty, mascot COFFEENERGY"><img data-sp="hello" alt="" width="150" height="166"></span>
@@ -1549,17 +1629,12 @@ svg.leaflet-image-layer.leaflet-interactive path {
           </div>
           <div class="road" id="road"></div>
         </div>
-        <div class="wrap" id="l-install" style="margin-top:clamp(40px,6vw,72px)">
-          <div class="card install">
+        <div class="wrap cf-dl" id="l-install" style="margin-top:clamp(40px,6vw,72px)">
+          <div class="card install l-install">
             <div>
               <span class="eyebrow">Ứng dụng</span>
-              <h2 style="font-family:var(--display);font-size:clamp(1.7rem,3vw,2.4rem);line-height:1.2;margin-top:10px">Cài COFFEENERGY lên màn hình chính</h2>
-              <p style="color:var(--ink-2);margin-top:10px;max-width:56ch">Mở toàn màn hình như một app ngay từ màn hình chính, hẹn thu gom chỉ vài lần chạm.</p>
-              <div class="plat">
-                <div><svg viewBox="0 0 24 24" fill="currentColor"><path d="M16.4 12.6c0-2.3 1.9-3.4 2-3.5-1.1-1.6-2.8-1.8-3.4-1.8-1.4-.1-2.8.9-3.5.9-.7 0-1.8-.8-3-.8-1.5 0-3 .9-3.8 2.3-1.6 2.8-.4 7 1.2 9.3.8 1.1 1.7 2.4 2.9 2.3 1.2 0 1.6-.7 3-.7s1.8.7 3 .7c1.3 0 2.1-1.1 2.8-2.3.9-1.3 1.3-2.6 1.3-2.6s-2.5-1-2.5-3.8zM14.1 5.8c.6-.8 1.1-1.8 1-2.9-.9 0-2.1.6-2.7 1.4-.6.7-1.1 1.8-1 2.8 1 .1 2.1-.5 2.7-1.3z"/></svg><b>iPhone, iPad</b><span>Safari → Chia sẻ → Thêm vào MH chính</span></div>
-                <div><svg viewBox="0 0 24 24" fill="currentColor"><path d="M17.6 9.5l1.6-2.8a.4.4 0 0 0-.7-.4l-1.7 2.9A10 10 0 0 0 12 8.3c-1.7 0-3.3.3-4.8.9L5.5 6.3a.4.4 0 0 0-.7.4l1.6 2.8A9 9 0 0 0 2 16.6h20a9 9 0 0 0-4.4-7.1zM7.3 14a1 1 0 1 1 0-2 1 1 0 0 1 0 2zm9.4 0a1 1 0 1 1 0-2 1 1 0 0 1 0 2z"/></svg><b>Android</b><span>Chrome → bấm “Cài app” bên dưới</span></div>
-              </div>
-              <button class="btn btn-p" type="button" data-act="guide" style="margin-top:16px">Cài app ngay</button>
+              <h2 style="font-family:var(--display);font-size:clamp(1.7rem,3vw,2.4rem);line-height:1.2;margin-top:10px">Cài COFFEENERGY lên điện thoại</h2>
+              <div data-install style="margin-top:18px"></div>
             </div>
             <div class="phone" aria-hidden="true">
               <div class="scr">
@@ -1599,7 +1674,7 @@ svg.leaflet-image-layer.leaflet-interactive path {
     <div class="sb-foot">
       <div class="sb-user"><span class="av" id="sbAv">—</span><div><b id="sbName">—</b><span id="sbRole"></span></div></div>
       <button class="btn btn-g btn-sm" type="button" data-act="switch"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="9" cy="8" r="3.5"/><path d="M2.5 20a6.5 6.5 0 0 1 13 0M17 11l2 2 4-4"/></svg>Đổi tài khoản</button>
-      <button class="btn btn-g btn-sm" type="button" data-app="landing"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M15 6l-6 6 6 6"/></svg>Về trang giới thiệu</button>
+      <button class="btn btn-g btn-sm" type="button" data-app="landing"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M15 6l-6 6 6 6"/></svg>Đăng xuất, về trang giới thiệu</button>
       <button class="btn btn-g btn-sm" type="button" data-act="logout"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M15 4h4v16h-4M10 8l-4 4 4 4M6 12h10"/></svg>Đăng xuất</button>
     </div>
   </aside>
@@ -1608,12 +1683,17 @@ svg.leaflet-image-layer.leaflet-interactive path {
       <button class="icon-btn mb-menu" type="button" data-app="sbopen" aria-label="Mở menu" aria-controls="sidebar"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M4 7h16M4 12h16M4 17h16"/></svg></button>
       <div class="tb-title"><h1 id="pageTitle"></h1><p id="pageSub"></p></div>
       <div class="tb-tools">
+        <span class="tb-date hide-lg" id="tbDate"></span>
+        <button class="btn btn-p btn-sm tb-cta hide-sm" type="button" id="tbCta" data-p="cart"></button>
+        <div class="seg lang-seg hide-sm" role="group" aria-label="Ngôn ngữ"><button type="button" data-lang="vi">VI</button><button type="button" data-lang="en">EN</button></div>
         <button class="icon-btn hide-sm" type="button" data-act="guide" aria-label="Tải ứng dụng" title="Tải ứng dụng"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 4v11"/><path d="M7 10l5 5 5-5"/><path d="M5 20h14"/></svg></button>
         <div class="nwrap">
           <button class="icon-btn" type="button" id="notifBtn" data-app="notif" aria-label="Thông báo" aria-expanded="false"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"><path d="M6 16V11a6 6 0 0 1 12 0v5l1.5 2h-15z"/><path d="M10 20a2 2 0 0 0 4 0"/></svg><span class="dot" id="notifDot" hidden></span></button>
           <div class="notif" id="notifPanel" hidden></div>
         </div>
-        <button class="icon-btn theme-ic" type="button" data-act="theme" aria-label="Đổi giao diện sáng / tối"><svg class="ic-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"><path d="M20 14.5A8 8 0 0 1 9.5 4a8 8 0 1 0 10.5 10.5z"/></svg><svg class="ic-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></svg></button>
+        <button class="icon-btn theme-ic hide-sm" type="button" data-act="theme" aria-label="Đổi giao diện sáng / tối"><svg class="ic-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"><path d="M20 14.5A8 8 0 0 1 9.5 4a8 8 0 1 0 10.5 10.5z"/></svg><svg class="ic-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></svg></button>
+        <button class="icon-btn" type="button" data-act="settings" aria-label="Cài đặt" title="Cài đặt"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.7 1.7 0 0 0 .3 1.8l.1.1a2 2 0 1 1-2.8 2.8l-.1-.1a1.7 1.7 0 0 0-1.8-.3 1.7 1.7 0 0 0-1 1.5V21a2 2 0 1 1-4 0v-.1a1.7 1.7 0 0 0-1.1-1.5 1.7 1.7 0 0 0-1.8.3l-.1.1a2 2 0 1 1-2.8-2.8l.1-.1a1.7 1.7 0 0 0 .3-1.8 1.7 1.7 0 0 0-1.5-1H3a2 2 0 1 1 0-4h.1a1.7 1.7 0 0 0 1.5-1.1 1.7 1.7 0 0 0-.3-1.8l-.1-.1a2 2 0 1 1 2.8-2.8l.1.1a1.7 1.7 0 0 0 1.8.3H9a1.7 1.7 0 0 0 1-1.5V3a2 2 0 1 1 4 0v.1a1.7 1.7 0 0 0 1 1.5 1.7 1.7 0 0 0 1.8-.3l.1-.1a2 2 0 1 1 2.8 2.8l-.1.1a1.7 1.7 0 0 0-.3 1.8V9a1.7 1.7 0 0 0 1.5 1H21a2 2 0 1 1 0 4h-.1a1.7 1.7 0 0 0-1.5 1z"/></svg></button>
+        <button class="tb-me hide-md" type="button" data-act="settings" aria-label="Tài khoản và cài đặt"><span class="av" id="tbAv">—</span><span class="tb-me-t"><b id="tbName">—</b><small id="tbRole"></small></span></button>
       </div>
     </header>
     <main class="content" id="content"></main>
@@ -1687,7 +1767,10 @@ const clamp = (v, a = 0, b = 1) => Math.min(b, Math.max(a, v));
 const smooth01 = (a, b, x) => { const t = clamp((x - a) / (b - a)); return t * t * (3 - 2 * t); };
 const esc = s => String(s ?? '').replace(/[&<>"']/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
 const vnd = n => Math.round(n).toLocaleString('vi-VN') + 'đ';
-const reduced = () => matchMedia('(prefers-reduced-motion: reduce)').matches;
+const reduced = () => matchMedia('(prefers-reduced-motion: reduce)').matches || document.documentElement.classList.contains('rm');
+const simMul = () => ({ slow: .5, normal: 1, fast: 2 })[LSget('sim', 'normal')] || 1;
+function LSget(k, d) { try { const v = localStorage.getItem('cfe3:' + k); return v == null ? d : JSON.parse(v); } catch (e) { return d; } }
+if (LSget('rm', false)) document.documentElement.classList.add('rm');
 const uid = () => Math.random().toString(36).slice(2, 8).toUpperCase();
 const DOWL = ['Chủ nhật', 'Thứ Hai', 'Thứ Ba', 'Thứ Tư', 'Thứ Năm', 'Thứ Sáu', 'Thứ Bảy'];
 const MEM = {};
@@ -1714,6 +1797,7 @@ function toast(m) { const t = $('#toast'); t.textContent = m; t.classList.add('o
 let lastFocus = null;
 function openModal(html) {
   lastFocus = document.activeElement;
+  $('#mbox').className = 'mbox';
   $('#mbox').innerHTML = `<button class="icon-btn x" type="button" data-act="close" aria-label="Đóng"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 6l12 12M18 6 6 18"/></svg></button>` + html;
   $('#modal').hidden = false; document.body.style.overflow = 'hidden';
   setTimeout(() => { if (!$('#mbox').contains(document.activeElement)) ($('#mbox input,#mbox select,#mbox textarea') || $('#mbox .x')).focus(); }, 30);
@@ -1826,25 +1910,120 @@ function workshopForm() {
   </div><p class="err" id="wErr" hidden></p><button class="btn btn-p" type="submit">Gửi yêu cầu</button></form>`);
 }
 
-/* ---------- Hướng dẫn cài app (theo loại máy) ---------- */
+/* ---------- Tải app (PWA): hộp hướng dẫn iPhone / Android, nhắc theo loại máy ----------
+   - Android, máy tính Chrome/Edge: nút "Cài ngay" mở hộp cài của hệ điều hành.
+   - iPhone, iPad: Safari không cho trang tự cài, nên hướng dẫn 3 bước "Thêm vào MH chính".
+   - Zalo, Facebook, khung xem trước: nhắc mở bằng trình duyệt trước. */
 const UA = navigator.userAgent || '';
-const IS = { ios: /iPhone|iPad|iPod/.test(UA) || (navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1), android: /Android/i.test(UA), inApp: /Zalo|FBAN|FBAV|FB_IAB|Instagram|Line\/|TikTok/i.test(UA), framed: window.top !== window.self };
-let installEvt = null;
-addEventListener('beforeinstallprompt', e => { e.preventDefault(); installEvt = e; });
-addEventListener('appinstalled', () => { installEvt = null; toast('Đã cài COFFEENERGY. Mở từ màn hình chính nhé.'); });
-const SHARE = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v12"/><path d="M8 7l4-4 4 4"/><path d="M6 11H5a1 1 0 0 0-1 1v8a1 1 0 0 0 1 1h14a1 1 0 0 0 1-1v-8a1 1 0 0 0-1-1h-1"/></svg>';
-const ADD = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round"><rect x="4" y="4" width="16" height="16" rx="4"/><path d="M12 8v8M8 12h8"/></svg>';
-const agStep = (n, t, s, mock) => `<li><span class="n">${n}</span><div><b>${t}</b>${s ? `<small>${s}</small>` : ''}${mock ? `<div class="ag-mock">${mock}</div>` : ''}</div></li>`;
-function openGuide() {
-  if (installEvt) { installEvt.prompt(); installEvt.userChoice.finally(() => installEvt = null); return; }
-  let body = '';
-  if (IS.framed) body += `<p class="warn">Trang đang mở trong khung xem trước nên chưa cài được. Mở trang bằng đường link riêng của dự án rồi làm theo các bước dưới đây.</p>`;
-  if (IS.inApp) body += `<p class="warn">Bạn đang mở trong Zalo hoặc Facebook. Bấm ⋯ ở góc trên, chọn “Mở bằng trình duyệt” trước rồi cài.</p>`;
-  if (IS.ios) body += `<ol class="ag">${agStep(1, 'Bấm nút Chia sẻ', 'Ở thanh dưới cùng của Safari (hoặc cạnh thanh địa chỉ).', SHARE + ' Chia sẻ')}${agStep(2, 'Chọn “Thêm vào MH chính”', 'Kéo xuống danh sách nếu chưa thấy.', ADD + ' Thêm vào MH chính')}${agStep(3, 'Bấm “Thêm”', 'Biểu tượng COFFEENERGY xuất hiện trên màn hình chính.', '')}</ol>`;
-  else if (IS.android) body += `<ol class="ag">${agStep(1, 'Mở menu ⋮ của Chrome', 'Góc trên bên phải.', '')}${agStep(2, 'Chọn “Cài đặt ứng dụng”', 'Hoặc “Thêm vào màn hình chính”.', ADD + ' Cài đặt ứng dụng')}${agStep(3, 'Bấm “Cài đặt”', 'Mở app từ màn hình chính như mọi app khác.', '')}</ol>`;
-  else body += `<ol class="ag">${agStep(1, 'Trên máy tính (Chrome, Edge)', 'Bấm biểu tượng cài đặt ở cuối thanh địa chỉ, chọn “Cài đặt”.', '')}${agStep(2, 'Trên iPhone', 'Mở bằng Safari → Chia sẻ → “Thêm vào MH chính”.', SHARE + ' Chia sẻ')}${agStep(3, 'Trên Android', 'Mở bằng Chrome → menu ⋮ → “Cài đặt ứng dụng”.', '')}</ol>`;
-  openModal(`${mascotHTML('app', 120)}<h2 style="text-align:center;padding:0">Cài COFFEENERGY</h2>${body}`);
+const IS = { evt: null, nudged: false, tab: null };
+IS.ios = /iPhone|iPad|iPod/.test(UA) || (navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1);
+IS.ipad = /iPad/.test(UA) || (navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1);
+IS.android = /Android/i.test(UA); IS.mobile = IS.ios || IS.android;
+IS.inApp = /Zalo|FBAN|FBAV|FB_IAB|Instagram|Line\/|TikTok|musical_ly|MicroMessenger/i.test(UA);
+IS.iosOther = IS.ios && /CriOS|FxiOS|EdgiOS|OPiOS|GSA\//.test(UA);
+IS.samsung = /SamsungBrowser/i.test(UA);
+IS.safariVer = +((UA.match(/Version\/(\d+)/) || [])[1] || 0);
+IS.framed = (() => { try { return window.top !== window.self; } catch (e) { return true; } })();
+const SV = {
+  share: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v12"/><path d="M8 7l4-4 4 4"/><path d="M6 11H5a1 1 0 0 0-1 1v8a1 1 0 0 0 1 1h14a1 1 0 0 0 1-1v-8a1 1 0 0 0-1-1h-1"/></svg>',
+  add: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round"><rect x="3.5" y="3.5" width="17" height="17" rx="4"/><path d="M12 8v8M8 12h8"/></svg>',
+  dots: '<svg viewBox="0 0 24 24" fill="currentColor"><circle cx="5" cy="12" r="2"/><circle cx="12" cy="12" r="2"/><circle cx="19" cy="12" r="2"/></svg>',
+  vdots: '<svg viewBox="0 0 24 24" fill="currentColor"><circle cx="12" cy="5" r="2"/><circle cx="12" cy="12" r="2"/><circle cx="12" cy="19" r="2"/></svg>',
+  dl: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 4v11"/><path d="M7 10l5 5 5-5"/><path d="M5 20h14"/></svg>',
+  apple: '<svg viewBox="0 0 24 24" fill="currentColor"><path d="M16.4 12.6c0-2.3 1.9-3.4 2-3.5-1.1-1.6-2.8-1.8-3.4-1.8-1.4-.1-2.8.9-3.5.9-.7 0-1.8-.8-3-.8-1.5 0-3 .9-3.8 2.3-1.6 2.8-.4 7 1.2 9.3.8 1.1 1.7 2.4 2.9 2.3 1.2 0 1.6-.7 3-.7s1.8.7 3 .7c1.3 0 2.1-1.1 2.8-2.3.9-1.3 1.3-2.6 1.3-2.6s-2.5-1-2.5-3.8zM14.1 5.8c.6-.8 1.1-1.8 1-2.9-.9 0-2.1.6-2.7 1.4-.6.7-1.1 1.8-1 2.8 1 .1 2.1-.5 2.7-1.3z"/></svg>',
+  android: '<svg viewBox="0 0 24 24" fill="currentColor"><path d="M17.6 9.5l1.6-2.8a.4.4 0 0 0-.7-.4l-1.7 2.9A10 10 0 0 0 12 8.3c-1.7 0-3.3.3-4.8.9L5.5 6.3a.4.4 0 0 0-.7.4l1.6 2.8A9 9 0 0 0 2 16.6h20a9 9 0 0 0-4.4-7.1zM7.3 14a1 1 0 1 1 0-2 1 1 0 0 1 0 2zm9.4 0a1 1 0 1 1 0-2 1 1 0 0 1 0 2z"/></svg>'
+};
+const SHARE = SV.share, ADD = SV.add;
+function isStandalone() { try { return matchMedia('(display-mode: standalone)').matches || matchMedia('(display-mode: minimal-ui)').matches || navigator.standalone === true; } catch (e) { return false; } }
+function markStandalone() { document.documentElement.classList.toggle('cf-standalone', isStandalone()); }
+markStandalone(); try { matchMedia('(display-mode: standalone)').addEventListener('change', () => { markStandalone(); renderInstall(); }); } catch (e) {}
+addEventListener('beforeinstallprompt', e => { e.preventDefault(); IS.evt = e; renderInstall(); });
+addEventListener('appinstalled', () => { IS.evt = null; hideNudge(); toast(T('Đã cài COFFEENERGY. Mở từ màn hình chính để dùng như app.', 'COFFEENERGY installed. Open it from your home screen.')); if ($('#mbox .ag-head')) closeModal(); renderInstall(); });
+const appIcon = () => $('#touchIcon')?.getAttribute('href') || '';
+const agStep = (n, t, s, mock) => `<li><span class="n">${n}</span><div><b>${t}</b>${s ? `<small>${s}</small>` : ''}${mock ? `<span class="ag-mock">${mock}</span>` : ''}</div></li>`;
+function agIos() {
+  const v26 = IS.ios ? IS.safariVer >= 26 : true, share = SV.share + ' ' + T('Chia sẻ', 'Share');
+  const s1 = IS.iosOther ? agStep(1, T('Bấm nút Chia sẻ trên thanh địa chỉ', 'Tap Share in the address bar'), T('Chrome, Edge trên iPhone cũng có nút này. Không thấy thì mở trang bằng Safari.', 'Chrome and Edge on iPhone have it too. If not, open the page in Safari.'), share)
+    : IS.ipad ? agStep(1, T('Bấm nút Chia sẻ ở góc trên bên phải', 'Tap Share at the top right'), T('Hình vuông có mũi tên đi lên.', 'The square with an upward arrow.'), share)
+    : agStep(1, T('Bấm nút Chia sẻ trong Safari', 'Tap Share in Safari'), v26 ? T('iOS 26: bấm nút ⋯ ở góc dưới bên phải trước, rồi chọn Chia sẻ.', 'iOS 26: tap ⋯ at the bottom right first, then Share.') : T('Hình vuông có mũi tên đi lên, ở thanh dưới cùng.', 'The square with an upward arrow, in the bottom bar.'), (v26 ? SV.dots + ' → ' : '') + share);
+  return `<ol class="ag">${s1}${agStep(2, T('Chọn “Thêm vào MH chính”', 'Choose “Add to Home Screen”'), T('Kéo xuống trong danh sách. Chưa thấy thì bấm “Sửa tác vụ” để bật.', 'Scroll down the list. If missing, tap “Edit Actions” to turn it on.'), SV.add + ' ' + T('Thêm vào MH chính', 'Add to Home Screen'))}${agStep(3, T('Bấm “Thêm”', 'Tap “Add”'), T('Biểu tượng COFFEENERGY xuất hiện ngoài màn hình chính. Mở từ đó là chạy toàn màn hình.', 'The COFFEENERGY icon appears on your home screen and opens full screen.'))}</ol>`;
 }
+function agAndroid() {
+  const s1 = IS.samsung ? agStep(1, T('Bấm nút ≡ ở thanh dưới cùng', 'Tap ≡ in the bottom bar'), T('Trình duyệt Samsung Internet.', 'Samsung Internet browser.'), '≡ Menu')
+    : agStep(1, T('Bấm nút ⋮ ở góc trên bên phải', 'Tap ⋮ at the top right'), T('Trong Chrome. Trình duyệt khác thường có nút menu tương tự.', 'In Chrome. Other browsers have a similar menu.'), SV.vdots);
+  const s2 = IS.samsung ? agStep(2, T('Chọn “Thêm trang vào” › “Màn hình chờ”', 'Choose “Add page to” › “Home screen”'), '', SV.add + ' ' + T('Màn hình chờ', 'Home screen'))
+    : agStep(2, T('Chọn “Cài đặt ứng dụng”', 'Choose “Install app”'), T('Máy cũ có thể ghi “Thêm vào màn hình chính”.', 'Older phones may say “Add to Home screen”.'), SV.add + ' ' + T('Cài đặt ứng dụng', 'Install app'));
+  return `<ol class="ag">${s1}${s2}${agStep(3, T('Bấm “Cài đặt”', 'Tap “Install”'), T('Biểu tượng COFFEENERGY xuất hiện ngoài màn hình chính như mọi app khác.', 'The COFFEENERGY icon appears on your home screen like any other app.'))}</ol>`;
+}
+const agWarn = () => {
+  if (IS.inApp) return `<div class="ag-warn"><b>${T('Bạn đang mở trang trong ', 'You are inside ')}${/Zalo/i.test(UA) ? 'Zalo' : T('một ứng dụng khác', 'another app')}${T(', nơi không cài được.', ', where installing is not possible.')}</b> ${T(`Bấm nút ${IS.ios ? '⋯' : '⋮'} ở góc trên, chọn “Mở bằng trình duyệt”, rồi làm theo các bước dưới đây.`, `Tap ${IS.ios ? '⋯' : '⋮'} at the top, choose “Open in browser”, then follow the steps below.`)}<br><button type="button" class="btn btn-s btn-sm" style="margin-top:8px" data-act="agcopy">${T('Sao chép đường dẫn', 'Copy link')}</button></div>`;
+  if (IS.framed) return `<div class="ag-warn"><b>${T('Trang đang mở trong khung xem trước nên chưa cài được.', 'This page is inside a preview frame, so it can’t be installed here.')}</b> ${T('Mở trang bằng đường link riêng của dự án (coffeenergy.vercel.app) rồi làm theo các bước dưới đây.', 'Open the project’s own link (coffeenergy.vercel.app), then follow the steps below.')}</div>`;
+  return '';
+};
+const agNow = () => IS.evt ? `<div class="ag-now"><button type="button" class="btn btn-p" data-act="aginstall">${SV.dl} ${IS.mobile ? T('Cài ngay trên máy này', 'Install on this device') : T('Cài lên máy tính này', 'Install on this computer')}</button><span class="note">${T('Một chạm, hệ điều hành sẽ hỏi xác nhận.', 'One tap; your system will ask to confirm.')}</span></div>` : '';
+const agDone = () => `<div class="ag-ok">✓ ${T('Bạn đang dùng COFFEENERGY như app đã cài.', 'You are using COFFEENERGY as an installed app.')}</div>`;
+const agFaq = () => `<details class="ag-faq"><summary>${T('Vì sao không tải trên App Store hay CH Play?', 'Why not on the App Store or Google Play?')}</summary><p>${T('COFFEENERGY là ứng dụng web (PWA): cài thẳng từ trình duyệt, không cần tài khoản Apple hay Google, nhẹ và luôn là bản mới nhất. Sau khi cài, biểu tượng nằm ngoài màn hình chính và mở toàn màn hình như mọi app khác.', 'COFFEENERGY is a web app (PWA): it installs straight from the browser, needs no Apple or Google account, stays light and is always the latest version. Once installed, its icon sits on your home screen and opens full screen like any other app.')}</p></details>`;
+function openGuide() {
+  hideNudge();
+  const mob = IS.mobile, first = IS.ios ? 'ios' : 'android', other = first === 'ios' ? 'android' : 'ios';
+  const col = k => `<section class="ag-col"><h3>${k === 'ios' ? SV.apple + ' iPhone, iPad' : SV.android + ' Android'}</h3><p class="ag-br">${k === 'ios' ? T('Mở trang bằng Safari', 'Open the page in Safari') : T('Mở trang bằng Chrome', 'Open the page in Chrome')}</p>${k === 'ios' ? agIos() : agAndroid()}</section>`;
+  const steps = mob ? col(first) + `<details class="ag-more"><summary>${other === 'ios' ? T('Xem cách cài cho iPhone, iPad', 'How to install on iPhone, iPad') : T('Xem cách cài cho Android', 'How to install on Android')}</summary>${col(other)}</details>` : `<div class="ag-cols">${col('ios')}${col('android')}</div>`;
+  const web = location.protocol.startsWith('http') && !IS.framed, url = location.href.split('#')[0];
+  const link = mob ? '' : `<div class="ag-link"><div style="flex:1;min-width:220px"><b>${T('Mở trang này trên điện thoại', 'Open this page on your phone')}</b><span>${T('Gửi đường dẫn sang điện thoại qua Zalo hoặc tin nhắn, mở bằng Safari (iPhone) hoặc Chrome (Android), rồi làm theo các bước bên dưới.', 'Send the link to your phone, open it in Safari (iPhone) or Chrome (Android), then follow the steps below.')}</span></div>${web ? `<code>${esc(url.replace(/^https?:\/\//, '').replace(/\/$/, ''))}</code>` : ''}<button type="button" class="btn btn-s btn-sm" data-act="agcopy">${T('Sao chép đường dẫn', 'Copy link')}</button></div>`;
+  openModal(`<div class="ag-head"><img src="${appIcon()}" alt=""><div><h2>${T('Tải COFFEENERGY về điện thoại', 'Get COFFEENERGY on your phone')}</h2><p>${T('Miễn phí, mở một chạm từ màn hình chính, chạy toàn màn hình như app. Hẹn thu gom, xem xe tới và điểm xanh ngay trên điện thoại.', 'Free, one tap from your home screen, full screen like an app. Book pickups, watch the truck and check green points on your phone.')}</p></div></div>
+    ${isStandalone() ? agDone() : ''}${agWarn()}${agNow()}${link}${steps}${agFaq()}`);
+  $('#mbox').classList.add('ag-wide');
+}
+async function agCopy() { const u = IS.framed ? 'https://coffeenergy.vercel.app/' : location.href.split('#')[0]; try { await navigator.clipboard.writeText(u); toast(T('Đã sao chép đường dẫn', 'Link copied')); } catch (e) { toast(u); } }
+async function agInstall() {
+  const ev = IS.evt; if (!ev) return openGuide(); IS.evt = null; hideNudge();
+  try { ev.prompt(); const r = await ev.userChoice; if (r && r.outcome === 'dismissed') toast(T('Bạn có thể cài lại bất cứ lúc nào bằng nút Tải app', 'You can install any time from the Get the app button')); } catch (e) {}
+  renderInstall();
+}
+/* Nhắc tải app: điện thoại nói đúng loại máy; máy tính gợi ý mở trên điện thoại. Bấm × thì 7 ngày không nhắc. */
+function nudge(delay) {
+  if (IS.nudged) return; IS.nudged = true;
+  setTimeout(() => {
+    const snooze = +LSget('install-snooze', 0) || 0;
+    if (isStandalone() || Date.now() < snooze || !$('#modal').hidden || $('#auth')?.classList.contains('on') || $('.cf-nudge')) { IS.nudged = false; if (Date.now() >= snooze && !isStandalone()) nudge(15000); return; }
+    const title = IS.ios ? T('Tải app cho iPhone', 'Get the iPhone app') : IS.android ? T('Tải app cho Android', 'Get the Android app') : T('Có COFFEENERGY trên điện thoại', 'COFFEENERGY on your phone');
+    const sub = IS.ios ? T('Qua Safari, 3 bước', 'From Safari, 3 steps') : IS.android ? (IS.evt ? T('Cài 1 chạm, không cần CH Play', 'One-tap install, no Play Store needed') : T('Cài từ Chrome, 3 bước', 'Install from Chrome, 3 steps')) : T('Hẹn thu gom và xem xe tới ngay trên điện thoại', 'Book pickups and watch the truck on your phone');
+    const n = document.createElement('div'); n.className = 'cf-nudge' + (IS.mobile ? '' : ' desk'); n.setAttribute('role', 'dialog'); n.setAttribute('aria-label', T('Gợi ý tải ứng dụng', 'App download suggestion'));
+    n.innerHTML = `<img src="${appIcon()}" alt=""><div><b>${title}</b><span>${sub}</span></div><button type="button" class="btn btn-p btn-sm go">${IS.mobile && IS.evt ? T('Cài', 'Install') : T('Xem cách', 'How to')}</button><button type="button" class="no" aria-label="${T('Để sau', 'Later')}">×</button>`;
+    document.body.appendChild(n); requestAnimationFrame(() => n.classList.add('on'));
+    n.querySelector('.go').onclick = () => (IS.mobile && IS.evt ? agInstall() : goGuide());
+    n.querySelector('.no').onclick = () => { LS.set('install-snooze', Date.now() + 7 * 864e5); hideNudge(); };
+  }, delay);
+}
+function hideNudge() { const n = $('.cf-nudge'); if (!n) return; n.classList.remove('on'); setTimeout(() => n.remove(), 300); }
+/* Hộp cài app ngay trên trang (landing và dashboard): hai thẻ iPhone / Android, tự chọn theo máy */
+function installBox() {
+  if (isStandalone()) return agDone();
+  const tab = IS.tab || (IS.ios ? 'ios' : 'android');
+  const head = `<div class="ag-head"><img src="${appIcon()}" alt="${T('Biểu tượng COFFEENERGY', 'COFFEENERGY icon')}"><div><b>COFFEENERGY</b><p>${T('Cài thành biểu tượng ngoài màn hình chính, mở toàn màn hình như app. Miễn phí, không cần kho ứng dụng.', 'Add it as an icon on your home screen and open it full screen like an app. Free, no app store needed.')}</p></div></div>`;
+  const tabs = `<div class="ag-tabs" role="tablist" aria-label="${T('Chọn loại điện thoại', 'Choose your phone')}"><button type="button" role="tab" aria-selected="${tab === 'ios'}" data-act="agtab" data-tab="ios">${SV.apple} iPhone, iPad</button><button type="button" role="tab" aria-selected="${tab === 'android'}" data-act="agtab" data-tab="android">${SV.android} Android</button></div>`;
+  const note = !IS.mobile && !IS.framed ? `<p class="note" style="margin-top:12px">${T('Đang dùng máy tính? Gửi đường dẫn sang điện thoại rồi làm theo các bước trên.', 'On a computer? Send the link to your phone, then follow the steps above.')} <button type="button" class="btn btn-s btn-sm" data-act="agcopy">${T('Sao chép đường dẫn', 'Copy link')}</button></p>` : '';
+  return head + agWarn() + agNow() + tabs + `<div role="tabpanel">${tab === 'ios' ? agIos() : agAndroid()}</div>` + note;
+}
+function renderInstall() { $$('[data-install]').forEach(el => { el.innerHTML = installBox(); }); }
+/* Ở trang giới thiệu: cuộn tới mục cài app và nháy sáng; trong app: mở hộp hướng dẫn */
+function goGuide() {
+  const sec = $('#l-install');
+  hideNudge();
+  if (sec && !$('#landing').hidden && !isStandalone()) {
+    if ($('#lMob')?.classList.contains('open')) $('#lMob').classList.remove('open');
+    sec.scrollIntoView({ behavior: reduced() ? 'auto' : 'smooth', block: 'start' });
+    const box = sec.querySelector('.l-install'); box.classList.remove('flash'); void box.offsetWidth; box.classList.add('flash');
+  } else openGuide();
+}
+document.addEventListener('click', e => {
+  const b = e.target.closest('[data-act^="ag"]'); if (!b) return;
+  const a = b.dataset.act;
+  if (a === 'agtab') { IS.tab = b.dataset.tab; renderInstall(); }
+  else if (a === 'agcopy') agCopy();
+  else if (a === 'aginstall') agInstall();
+});
+setTimeout(() => { renderInstall(); nudge(8000); }, 0);
 
 /* ---------- Chat với Sprouty ---------- */
 const CHIPS = ['Kit STEM giá bao nhiêu?', 'Quán gửi bã thế nào?', 'Pin có an toàn không?', 'Điểm xanh đổi được gì?', 'Đặt workshop', 'Cài app'];
@@ -1999,6 +2178,28 @@ $('#fLogin').addEventListener('submit', e => { e.preventDefault(); doLogin(); })
 $('#fSignup').addEventListener('submit', e => { e.preventDefault(); doSignup(); });
 addEventListener('keydown', e => { if (e.key === 'Escape') { if ($('#auth').classList.contains('on')) hideAuth(); $('#acct').hidden = true; } });
 
+/* ---------- Cài đặt ---------- */
+const themeMode = () => document.documentElement.dataset.theme || 'system';
+function openSettings() {
+  const segs = (k, opts, cur) => `<div class="seg" role="group">${opts.map(([v, l]) => `<button type="button" data-act="set" data-k="${k}" data-v="${v}" aria-pressed="${cur === v}">${l}</button>`).join('')}</div>`;
+  const acc = user ? `<div class="set-acc"><span class="av" style="background:${user.color || DEMO_ACC[user.role].color}">${initials(user.name)}</span><div><b>${esc(user.name)}</b><small>${esc(ROLE_NAME(user.role))} · ${esc(user.email || '')}</small></div></div><div class="acts" style="display:flex;gap:8px;flex-wrap:wrap"><button class="btn btn-s btn-sm" type="button" data-act="switch">Đổi tài khoản</button><button class="btn btn-s btn-sm" type="button" data-act="logout">Đăng xuất</button></div>` : `<button class="btn btn-p btn-sm" type="button" data-act="login" style="justify-self:start">Đăng nhập</button>`;
+  openModal(`<h2>Cài đặt</h2>
+  <div class="set-g"><b>Tài khoản</b>${acc}</div>
+  <div class="set-g"><b>Ngôn ngữ</b>${segs('lang', [['vi', 'Tiếng Việt'], ['en', 'English']], LANG)}</div>
+  <div class="set-g"><b>Giao diện</b>${segs('theme', [['light', 'Sáng'], ['dark', 'Tối'], ['system', 'Theo máy']], themeMode())}</div>
+  <div class="set-g"><b>Tốc độ xe trên bản đồ</b>${segs('sim', [['slow', 'Chậm'], ['normal', 'Vừa'], ['fast', 'Nhanh']], LSget('sim', 'normal'))}<p class="note">Xe chạy là mô phỏng theo giờ hẹn, không phải GPS.</p></div>
+  <div class="set-g"><b>Hiệu ứng chuyển động</b>${segs('rm', [['0', 'Bật'], ['1', 'Giảm']], LSget('rm', false) ? '1' : '0')}<p class="note">Giảm hiệu ứng giúp máy yếu chạy mượt hơn: tắt xe chạy tự động và hiệu ứng cuộn.</p></div>
+  <div class="set-g"><b>Dữ liệu trên máy này</b><p class="note">Đơn hàng, lịch thu gom và tài khoản demo đang lưu trong trình duyệt của bạn.</p><button class="btn btn-s btn-sm" type="button" data-act="resetdemo" style="justify-self:start">Xoá dữ liệu demo</button></div>
+  <p class="note">COFFEENERGY · bản thử nghiệm</p>`);
+}
+function applySetting(k, v) {
+  if (k === 'lang') setLang(v);
+  if (k === 'theme') { if (v === 'system') { delete document.documentElement.dataset.theme; try { localStorage.removeItem('cfe3:theme'); } catch (e) {} } else { document.documentElement.dataset.theme = v; try { localStorage.setItem('cfe3:theme', JSON.stringify(v).replace(/"/g, '')); } catch (e) {} } applyTheme(); }
+  if (k === 'sim') LS.set('sim', v);
+  if (k === 'rm') { LS.set('rm', v === '1'); document.documentElement.classList.toggle('rm', v === '1'); if (v === '1') { LM.truck?.pause(); } }
+  openSettings();
+}
+
 /* ---------- Sự kiện ---------- */
 document.addEventListener('click', e => {
   const c = e.target.closest('[data-ask]'); if (c) { ask(c.dataset.ask); return; }
@@ -2009,18 +2210,21 @@ document.addEventListener('click', e => {
     else if (a.startsWith('buy:')) { toggleChat(false); buyForm(a.slice(4)); }
     else if (a.startsWith('app:')) { if (innerWidth < 980) toggleChat(false); enterApp(a.slice(4)); }
     else if (a === 'act:workshop') { toggleChat(false); workshopForm(); }
-    else if (a === 'act:guide') { toggleChat(false); openGuide(); }
+    else if (a === 'act:guide') { toggleChat(false); goGuide(); }
     return;
   }
   const b = e.target.closest('[data-act]');
   if (b) {
     const a = b.dataset.act;
     if (a === 'close') closeModal();
-    else if (a === 'guide') openGuide();
+    else if (a === 'guide') goGuide();
     else if (a === 'buy') { $('#acct').hidden = true; buyForm(b.dataset.id); }
     else if (a === 'workshop') { $('#acct').hidden = true; workshopForm(); }
     else if (a === 'chat') toggleChat();
     else if (a === 'theme') toggleTheme();
+    else if (a === 'settings') { $('#acct').hidden = true; openSettings(); }
+    else if (a === 'set') applySetting(b.dataset.k, b.dataset.v);
+    else if (a === 'resetdemo') { if (b.dataset.armed) { try { Object.keys(localStorage).filter(k => k.startsWith('cfe3:')).forEach(k => localStorage.removeItem(k)); } catch (e) {} location.href = location.pathname; } else { b.dataset.armed = 1; b.textContent = 'Bấm lần nữa để xoá'; } }
     else if (a === 'login') showAuth('login');
     else if (a === 'authclose') hideAuth();
     else if (a === 'acct') { const el = $('#acct'), o = el.hidden; if (o) renderAcct(); el.hidden = !o; b.setAttribute('aria-expanded', o); }
@@ -2187,9 +2391,21 @@ function makeMap(el, { zoom = 13, interactive = true } = {}) {
   if (!window.L) { el.innerHTML = '<p class="note" style="padding:16px">Không tải được thư viện bản đồ.</p>'; return null; }
   const map = L.map(el, { zoomControl: interactive, scrollWheelZoom: false, dragging: interactive, attributionControl: true }).setView(HN.center, zoom);
   let errs = 0, fb = null;
-  const tiles = L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', { maxZoom: 19, attribution: '© OpenStreetMap' }).addTo(map);
-  tiles.on('tileerror', () => {
-    if (++errs !== 3) return;
+  const SRC = [
+    ['https://{s}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}{r}.png', '© OpenStreetMap · © CARTO', 'abcd'],
+    ['https://tile.openstreetmap.org/{z}/{x}/{y}.png', '© OpenStreetMap', '']
+  ];
+  let si = 0, ok = false, tiles;
+  const useSrc = () => {
+    if (tiles) map.removeLayer(tiles);
+    const [u, a, sd] = SRC[si]; errs = 0;
+    tiles = L.tileLayer(u, { maxZoom: 19, attribution: a, subdomains: sd || 'abc' }).addTo(map);
+    tiles.on('tileload', () => { ok = true; });
+    tiles.on('tileerror', onErr);
+  };
+  const onErr = () => {
+    if (ok || ++errs !== 3) return;
+    if (si < SRC.length - 1) { si++; useSrc(); return; }
     el.classList.add('map-fb');
     fb = L.layerGroup([
       L.polyline(FALLBACK.song, { color: '#9CC7DA', weight: 26, opacity: .7, interactive: false }),
@@ -2198,7 +2414,8 @@ function makeMap(el, { zoom = 13, interactive = true } = {}) {
       ...[['Hồ Tây', [21.0560, 105.8185]], ['Hồ Gươm', [21.0288, 105.8560]], ['Sông Hồng', [21.0600, 105.8520]]].map(([t, ll]) => L.marker(ll, { interactive: false, icon: L.divIcon({ className: 'map-lbl', html: t, iconSize: null }) }))
     ]).addTo(map);
     fb.eachLayer(l => l.bringToBack && l.bringToBack());
-  });
+  };
+  useSrc();
   let ro = null;
   if (window.ResizeObserver) { ro = new ResizeObserver(() => { if (!map._dead) try { map.invalidateSize(); } catch (e) {} }); ro.observe(el); }
   const rm = map.remove.bind(map); map.remove = () => { map._dead = true; ro?.disconnect(); return rm(); };
@@ -2206,12 +2423,12 @@ function makeMap(el, { zoom = 13, interactive = true } = {}) {
 }
 const pinIcon = (txt, cls = '') => L.divIcon({ className: 'map-pin ' + cls, html: `<span><b>${txt}</b></span>`, iconSize: [30, 30], iconAnchor: [15, 30], popupAnchor: [0, -28] });
 const depotIcon = () => L.divIcon({ className: 'map-depot', html: '<span>⌂</span>', iconSize: [34, 34], iconAnchor: [17, 17] });
-const truckIcon = () => L.divIcon({ className: 'map-truck', html: `<div class="tk">${TRUCK_SVG}</div>`, iconSize: [44, 30], iconAnchor: [22, 22] });
+const truckIcon = () => L.divIcon({ className: 'map-truck', html: `<div class="tk"><svg viewBox="0 0 40 40" width="40" height="40" aria-hidden="true"><circle cx="20" cy="20" r="18" fill="#3F7A22" fill-opacity=".18"/><rect x="13" y="8" width="14" height="25" rx="4" fill="#3F7A22" stroke="#fff" stroke-width="2"/><rect x="14.5" y="9.5" width="11" height="7" rx="2" fill="#B5DD66"/><path d="M21 19l-3 5h2.5l-1.5 4 4-6h-2.5l1.5-3z" fill="#fff"/></svg></div>`, iconSize: [40, 40], iconAnchor: [20, 20] });
 
 /* Xe chạy dọc tuyến. speed = số giây thật mô phỏng trong 1 giây màn hình. */
 class Truck {
   constructor(map, route, { speed = 60, stopPause = 900, onStop, onTick, loop = false } = {}) {
-    this.map = map; this.route = route; this.speed = speed; this.stopPause = stopPause; this.onStop = onStop; this.onTick = onTick; this.loop = loop;
+    this.map = map; this.route = route; this.speed = speed * simMul(); this.stopPause = stopPause; this.onStop = onStop; this.onTick = onTick; this.loop = loop;
     const P = route.path, cum = [0]; for (let i = 1; i < P.length; i++) cum.push(cum[i - 1] + hav(P[i - 1], P[i]));
     this.cum = cum; this.total = cum[cum.length - 1] || 1;
     // quy đổi quãng đường hình học sang thời gian theo từng chặng
@@ -2224,21 +2441,30 @@ class Truck {
     const c = this.cum, P = this.route.path; let lo = 0, hi = c.length - 1;
     while (lo < hi - 1) { const m = (lo + hi) >> 1; if (c[m] <= s) lo = m; else hi = m; }
     const seg = c[hi] - c[lo] || 1, t = (s - c[lo]) / seg;
-    return [[P[lo][0] + (P[hi][0] - P[lo][0]) * t, P[lo][1] + (P[hi][1] - P[lo][1]) * t], P[hi][1] < P[lo][1]];
+    const dy = P[hi][0] - P[lo][0], dx = (P[hi][1] - P[lo][1]) * Math.cos(P[lo][0] * Math.PI / 180);
+    return [[P[lo][0] + dy * t, P[lo][1] + (P[hi][1] - P[lo][1]) * t], Math.atan2(dx, dy) * 180 / Math.PI];
   }
   // tốc độ trên chặng hiện tại (m/s thật) theo thời gian dự kiến của chặng
   legSpeed() { const l = this.legs[Math.min(this.next, this.legs.length - 1)]; return l && l.t ? l.d / l.t : 22 / 3.6; }
   play() { if (this.playing) return; if (this.s >= this.total) this.reset(); this.playing = true; this.last = 0; this.raf = requestAnimationFrame(t => this.tick(t)); }
   pause() { this.playing = false; cancelAnimationFrame(this.raf); this.raf = 0; }
   reset() { this.pause(); this.s = 0; this.next = 0; this.place(); this.onTick?.(this); }
-  place() { const [ll, west] = this.posAt(this.s); this.marker.setLatLng(ll); const el = this.marker.getElement(); if (el) el.classList.toggle('west', west); }
+  place() {
+    const [ll, brg] = this.posAt(this.s); this.marker.setLatLng(ll);
+    // xoay mượt về hướng đường, tránh giật khi đoạn đường gấp khúc
+    if (this.hd == null) this.hd = brg; let d = ((brg - this.hd + 540) % 360) - 180; this.hd += d * .18;
+    const tk = this.marker.getElement()?.firstChild; if (tk) tk.style.transform = `rotate(${this.hd.toFixed(1)}deg)`;
+  }
   tick(now) {
     if (!this.playing) return;
     if (!this.marker._map || this.map._dead) { this.pause(); return; }
     const dt = this.last ? Math.min(64, now - this.last) : 16; this.last = now;
     if (now < this.pauseUntil || document.hidden) { this.raf = requestAnimationFrame(t => this.tick(t)); return; }
     const geoPerReal = this.total / (this.legs.reduce((a, l) => a + l.d, 0) || 1);
-    this.s += this.legSpeed() * geoPerReal * this.speed * dt / 1000;
+    const prev = this.next ? this.stops[this.next - 1] : 0, nxt = this.stops[this.next] ?? this.total;
+    const near = Math.min(this.s - prev, nxt - this.s) / geoPerReal; // mét thật tới quán gần nhất
+    const ease = Math.max(.18, Math.min(1, near / 220));
+    this.s += this.legSpeed() * geoPerReal * this.speed * ease * dt / 1000;
     if (this.next < this.stops.length && this.s >= this.stops[this.next]) {
       this.s = this.stops[this.next]; const i = this.next++; this.onStop?.(i, this); this.pauseUntil = now + this.stopPause;
     }
@@ -2300,7 +2526,7 @@ async function initLandMap() {
   const start = new Date(); start.setHours(7, 0, 0, 0);
   const ts = etas(rt.legs, start);
   $('#lmInfo').textContent = `${kmOf(rt.legs).toFixed(1).replace('.', ',')} km · xuất phát 07:00 · về ${hhmm(ts[ts.length - 1])}${rt.real ? '' : ' · ước tính'}`;
-  LM.truck = new Truck(LM.map, rt, { speed: 120, loop: true, stopPause: 700 });
+  LM.truck = new Truck(LM.map, rt, { speed: 30, loop: true, stopPause: 1400 });
   if (LM.visible && !reduced()) LM.truck.play();
 }
 new IntersectionObserver(es => {
@@ -2445,12 +2671,25 @@ function renderShell() {
   const [h, t, pose] = PROMO[r];
   $('#sbPromo').innerHTML = `<div><b>${h}</b>${t}</div><span class="mascot" aria-hidden="true"><img src="${spSrc(pose)}" alt=""></span>`;
   $('#pageTitle').textContent = NAVP[page].t; $('#pageSub').textContent = NAVP[page].sub;
+  const CTA = { khach: ['cart', 'Giỏ hàng', IC.cart], quan: ['pickup', 'Đặt lịch thu gom', IC.cal], truong: ['workshop', 'Đặt workshop', IC.flask], doi: ['route', 'Lộ trình hôm nay', IC.truck] }[r];
+  const cn = r === 'khach' ? navCount('cart') : 0;
+  $('#tbCta').innerHTML = `${CTA[2]}<span>${CTA[1]}</span>${cn ? `<b class="tb-n">${cn}</b>` : ''}`; $('#tbCta').dataset.p = CTA[0]; $('#tbCta').hidden = page === CTA[0];
+  const d = new Date(); $('#tbDate').textContent = `${DOWL[d.getDay()]}, ${d.getDate()}/${d.getMonth() + 1}/${d.getFullYear()}`;
+  $('#tbAv').textContent = initials(user.name); $('#tbAv').style.background = color; $('#tbName').textContent = user.name; $('#tbRole').textContent = ROLE_NAME(r);
   renderNotifDot(); renderMe();
 }
 const VIEWS = {};
 let MAPS = [];
 function clearMaps() { MAPS.forEach(m => { m.truck?.destroy(); m.map?.remove(); }); MAPS = []; }
-function renderPage() { clearMaps(); const c = $('#content'); c.innerHTML = ''; VIEWS[page](c); }
+function renderPage() {
+  clearMaps(); const c = $('#content'); c.innerHTML = ''; VIEWS[page](c);
+  // trang tổng quan của mỗi vai trò: thêm hộp cài app (ẩn khi đã cài)
+  if (page === ROLE_PAGES[user.role][0] && !isStandalone()) {
+    const box = document.createElement('div'); box.className = 'panel cf-dl dash-install';
+    box.innerHTML = `<div class="p-h"><h3>${T('Cài COFFEENERGY lên điện thoại', 'Install COFFEENERGY on your phone')}</h3><span class="note">${{ khach: T('Xem đơn và nhận ưu đãi một chạm', 'Orders and offers in one tap'), quan: T('Hẹn thu gom và xem xe tới ngay trên điện thoại', 'Book pickups and watch the truck on your phone'), truong: T('Đặt workshop và mở giáo án nhanh hơn', 'Book workshops and open lesson plans faster'), doi: T('Mở lộ trình và cân bã ngay tại quán', 'Open the route and log weights at the café') }[user.role]}</span></div><div data-install></div>`;
+    (c.querySelector('.pg') || c).appendChild(box); renderInstall();
+  }
+}
 const refresh = () => { renderShell(); renderPage(); };
 const emptyM = (pose, title, text, btn) => `<div class="empty-m"><span class="mascot" aria-hidden="true"><img src="${spSrc(pose)}" alt=""></span><b>${title}</b><span>${text}</span>${btn || ''}</div>`;
 const pill = s => ({ requested: '<span class="pill p-wait">Chờ xác nhận</span>', confirmed: '<span class="pill p-ok">Đã hẹn giờ</span>', done: '<span class="pill p-done">Đã thu gom</span>', cancelled: '<span class="pill p-off">Đã huỷ</span>' }[s]);
@@ -2562,7 +2801,7 @@ function cafeTracker(next) {
     L.polyline(rt.path, { color: '#3F7A22', weight: 4, opacity: .85, dashArray: c ? null : '6 8' }).addTo(m.map);
     if (!c) { $('#trkEta').textContent = `Quán cách điểm tập kết khoảng ${kmOf(rt.legs).toFixed(1).replace('.', ',')} km. Khi đội thu gom xác nhận, xe sẽ hiện trên bản đồ.`; return; }
     $('#trkEta').innerHTML = `Xe tới quán lúc <b>${c.time}</b>, ${fmtD(c.date)}. Quãng đường ${kmOf(rt.legs).toFixed(1).replace('.', ',')} km, khoảng ${Math.round(rt.legs[0].t / 60)} phút chạy.`;
-    m.truck = new Truck(m.map, rt, { speed: 60, loop: true, stopPause: 1500 }); if (!reduced()) m.truck.play();
+    m.truck = new Truck(m.map, rt, { speed: 18, loop: true, stopPause: 2000 }); if (!reduced()) m.truck.play();
   });
 }
 VIEWS.pickup = c => {
@@ -2653,7 +2892,7 @@ VIEWS.route = c => {
   c.innerHTML = `<div class="pg">
   <div class="kpis"><div class="kpi"><span>Điểm cần đến</span><b>${list.length}</b></div><div class="kpi"><span>Bã dự kiến</span><b>${kg}<small>kg</small></b></div><div class="kpi"><span>Quãng đường</span><b id="rKm">…<small>km</small></b></div><div class="kpi"><span>Xong dự kiến</span><b id="rEnd">…</b></div></div>
   <div class="route-wrap">
-    <div class="panel"><div class="p-h"><h2>Bản đồ lộ trình</h2><div class="acts"><button class="btn btn-p btn-sm" type="button" data-app="rplay" id="rPlay">Cho xe chạy</button><button class="btn btn-s btn-sm" type="button" data-app="rreset">Về điểm xuất phát</button><label class="note" for="rSpeed" style="display:flex;align-items:center;gap:6px">Tốc độ<select class="inp" id="rSpeed" style="min-height:36px;width:auto;padding:4px 8px"><option value="30">x30</option><option value="90" selected>x90</option><option value="240">x240</option></select></label></div></div>
+    <div class="panel"><div class="p-h"><h2>Bản đồ lộ trình</h2><div class="acts"><button class="btn btn-p btn-sm" type="button" data-app="rplay" id="rPlay">Cho xe chạy</button><button class="btn btn-s btn-sm" type="button" data-app="rreset">Về điểm xuất phát</button><label class="note" for="rSpeed" style="display:flex;align-items:center;gap:6px">Tốc độ<select class="inp" id="rSpeed" style="min-height:36px;width:auto;padding:4px 8px"><option value="10">x10</option><option value="20" selected>x20</option><option value="45">x45</option></select></label></div></div>
     <div class="mapbox" id="rMap"></div><p class="note" id="rNote" style="margin-top:8px">Đang tính tuyến đường…</p></div>
     <div class="panel"><div class="p-h"><h2>Thứ tự ghé quán</h2><span class="note" id="rNow">Xe ở điểm tập kết</span></div><ol class="stops" id="rStops">
       <li class="stop" data-i="-1"><span class="sn">⌂</span><div><b>${HN.depot.name}</b><small>${HN.depot.note} · xuất phát <span class="mono" id="rStart">—</span></small></div></li>
@@ -2712,7 +2951,7 @@ document.addEventListener('click', e => {
   const a = b.dataset.app, id = b.dataset.id;
   const pk = () => { const list = pickups(); return [list, list.find(x => x.id === id)]; };
   switch (a) {
-    case 'landing': e.preventDefault(); toggleSb(false); leaveApp(); scrollTo(0, 0); break;
+    case 'landing': e.preventDefault(); toggleSb(false); signOut(); scrollTo(0, 0); break;
     case 'sbopen': toggleSb(true); break;
     case 'sbclose': toggleSb(false); break;
     case 'notif': { const p = $('#notifPanel'), o = p.hidden; if (o) renderNotifs(); p.hidden = !o; b.setAttribute('aria-expanded', o); break; }
@@ -2733,7 +2972,7 @@ document.addEventListener('click', e => {
     case 'tcancel': { const [l, x] = pk(); x.status = 'cancelled'; savePickups(l); if (x.email) pushN(x.email, `Lịch ${fmtD(x.date)} chưa sắp xếp được. Đội thu gom sẽ gọi để hẹn ngày khác.`, 'history'); toast('Đã từ chối yêu cầu'); refresh(); break; }
     case 'tdone': { const [, x] = pk(); openModal(`<h2>Đã thu gom</h2><p style="color:var(--ink-2)">${esc(x.name)} · ước tính ${x.kgEst} kg</p><form id="tdForm" data-id="${x.id}" style="display:grid;gap:12px"><div class="fg"><label for="tdKg">Số ký cân được</label><input class="inp" id="tdKg" type="text" inputmode="decimal" value="${x.kgEst}"></div><p class="err" id="tdErr" hidden></p><button class="btn btn-p" type="submit">Lưu và cộng điểm</button></form>`); break; }
     case 'ostep': { const os = get('orders'), o = os.find(x => x.id === id); o.step = (o.step ?? 0) + 1; put('orders', os); if (o.email) pushN(o.email, `Đơn ${P(o.item).name} × ${o.q}: ${OSTEPS[o.step].toLowerCase()}.`, 'orders'); toast('Đã cập nhật đơn'); refresh(); break; }
-    case 'rplay': { const m = MAPS[0]; if (!m?.truck) break; if (m.truck.playing) { m.truck.pause(); b.textContent = 'Cho xe chạy tiếp'; } else { if (m.truck.s >= m.truck.total) { m.truck.reset(); m.setStop(-1); } m.truck.speed = +$('#rSpeed').value; m.truck.play(); b.textContent = 'Tạm dừng'; } break; }
+    case 'rplay': { const m = MAPS[0]; if (!m?.truck) break; if (m.truck.playing) { m.truck.pause(); b.textContent = 'Cho xe chạy tiếp'; } else { if (m.truck.s >= m.truck.total) { m.truck.reset(); m.setStop(-1); } m.truck.speed = +$('#rSpeed').value * simMul(); m.truck.play(); b.textContent = 'Tạm dừng'; } break; }
     case 'rreset': { const m = MAPS[0]; if (!m?.truck) break; m.truck.reset(); m.setStop(-1); $('#rPlay').textContent = 'Cho xe chạy'; break; }
     case 'wstep': { const ws = get('workshops'), w = ws.find(x => x.id === id); w.step = 1; put('workshops', ws); if (w.email) pushN(w.email, `Đã chốt lịch workshop tại ${w.school}, ${fmtD(w.date)}.`, 'workshop'); toast('Đã chốt lịch workshop'); refresh(); break; }
   }
@@ -2741,7 +2980,7 @@ document.addEventListener('click', e => {
 function toggleSb(o) { $('#sidebar').classList.toggle('open', o); $('#sbScrim').classList.toggle('on', o); }
 function keepCo() { if (!$('#coName')) return; LS.set('buyer', { name: $('#coName').value, phone: $('#coPhone').value, addr: $('#coAddr').value }); }
 function keepPk() { if (!$('#pkForm')) return; PK.kg = +$('#pkKg').value; PK.bags = +$('#pkBags').value || 1; PK.note = $('#pkNote').value; PK.repeat = $('#pkRepeat').checked; }
-document.addEventListener('input', e => { if (e.target.id === 'pkKg') $('#pkKgV').textContent = e.target.value + ' kg'; if (e.target.id === 'rSpeed' && MAPS[0]?.truck) MAPS[0].truck.speed = +e.target.value; });
+document.addEventListener('input', e => { if (e.target.id === 'pkKg') $('#pkKgV').textContent = e.target.value + ' kg'; if (e.target.id === 'rSpeed' && MAPS[0]?.truck) MAPS[0].truck.speed = +e.target.value * simMul(); });
 document.addEventListener('submit', e => {
   const f = e.target, id = f.id;
   if (!['coForm', 'pkForm', 'wsAppForm', 'tcForm', 'tdForm'].includes(id)) return;
@@ -2827,6 +3066,221 @@ function appBot(q) {
   }
   return null;
 }
+
+/* Bản dịch tiếng Anh. Khoá là nguyên văn tiếng Việt (đã bỏ khoảng trắng hai đầu). */
+window.I18N_EN = {
+  // điều hướng & chung
+  'Pin hữu cơ từ bã cà phê': 'Organic batteries from coffee grounds', 'Vì sao': 'Why', 'Quy trình': 'Process', 'Sản phẩm': 'Products', 'Cho quán cà phê': 'For cafés', 'Trường học': 'Schools', 'Kiểm chứng': 'Proof', 'Lộ trình': 'Roadmap', 'Tải app': 'Get the app', 'Đăng nhập': 'Sign in', 'Cài đặt': 'Settings',
+  'Vì sao là bã cà phê': 'Why coffee grounds', 'Quy trình 5 bước': '5-step process', 'Kit STEM & pin': 'STEM kits & batteries', 'Workshop trường học': 'School workshops', 'Kiểm nghiệm & báo chí': 'Lab tests & press', 'Hẹn thu gom bã →': 'Book a pickup →',
+  'Quả chín trên cành': 'Ripe cherries on the branch', 'Rơi xuống đất': 'Falling to the ground', 'Về với đất': 'Back to the soil', 'Nảy mầm': 'Sprouting', 'Cây con vươn lên': 'A seedling rises', 'Đồi cà phê ra hoa': 'Coffee hills in bloom', 'Mùa thu hoạch': 'Harvest season',
+  'Bã cà phê ở quán': 'Grounds at the café', 'Phòng nghiên cứu': 'In the lab', 'Pin đầu tiên sáng lên': 'The first battery lights up', 'Sản xuất hàng loạt': 'Mass production', 'Sạc xe điện': 'EV charging', 'Xe buýt điện': 'Electric buses', 'Thành phố xanh': 'A greener city',
+  // hero
+  'COFFEENERGY · Thí điểm tại Hà Nội': 'COFFEENERGY · Piloting in Hanoi', 'Bã cà phê hôm nay,': 'Coffee grounds today,', 'pin xanh': 'green batteries', 'ngày mai.': 'tomorrow.',
+  'Cùng Sprouty gieo năng lượng sạch từ những điều nhỏ bé.': 'Growing clean energy from small things, with Sprouty.',
+  'Chúng mình thu gom bã cà phê từ các quán, nung thành than hoạt tính làm điện cực cho pin hữu cơ, rồi đóng thành bộ học cụ STEM để học sinh tự tay thắp sáng bóng đèn. Không chì, không coban.': 'We collect spent coffee grounds from cafés, turn them into activated carbon for organic battery electrodes, and pack them into STEM kits so students can light a bulb with their own hands. No lead, no cobalt.',
+  'Xem kit STEM & pin': 'See STEM kits & batteries', 'Quán tôi muốn gửi bã': 'My café wants to give grounds', 'Tải app cho iPhone và Android': 'Get the app for iPhone and Android',
+  'Hẹn thu gom bã cà phê': 'Book a coffee-grounds pickup', 'Dành cho chủ quán. Đội thu gom gọi xác nhận giờ đến.': 'For café owners. Our team calls to confirm the time.', 'Tên quán': 'Café name', 'Số điện thoại': 'Phone number', 'Khu vực (Hà Nội)': 'Area (Hanoi)', 'Ngày': 'Date', 'Khung giờ': 'Time window', 'Ước tính khối lượng bã:': 'Estimated grounds:', 'Mỗi kg bã được 10 điểm xanh để đổi quà cho quán.': 'Each kg earns 10 green points your café can redeem.', 'Gửi yêu cầu': 'Send request', 'VD: Cà Phê Ngõ 42': 'e.g. Cà Phê Ngõ 42',
+  // vấn đề
+  'Mỗi ngày, hàng trăm tấn bã cà phê rơi vào bãi rác': 'Every day, hundreds of tonnes of coffee grounds end up in landfill',
+  'Bã bị chôn lấp phân huỷ yếm khí và sinh khí metan. Trong khi đó, pin thông thường cần than chì khai thác mỏ và kim loại nặng. Bã cà phê lại giàu carbon hữu cơ, quán nào cũng có và gần như miễn phí.': 'Buried grounds rot without oxygen and release methane. Meanwhile, ordinary batteries need mined graphite and heavy metals. Coffee grounds are rich in organic carbon, every café has them, and they are almost free.',
+  'tấn/ngày': 'tonnes/day', 'bã cà phê cả nước thải ra, tương đương 180.000–250.000 tấn mỗi năm': 'of grounds discarded nationwide, about 180,000–250,000 tonnes a year', 'quán': 'cafés', 'cà phê đang hoạt động ở Hà Nội, mỗi quán thải 3–5 kg bã mỗi ngày': 'operating in Hanoi, each throwing out 3–5 kg of grounds a day', 'bã cà phê bị lãng phí riêng ở Hà Nội, khoảng 11.000 tấn mỗi năm': 'of grounds wasted in Hanoi alone, about 11,000 tonnes a year', 'thành rác': 'wasted', 'chỉ 5–7% bã được tái chế, phần còn lại phát thải khí metan': 'only 5–7% is recycled; the rest emits methane', 'Nguồn: pitch deck và hồ sơ dự án COFFEENERGY.': 'Source: COFFEENERGY pitch deck and project dossier.',
+  // quy trình
+  'Từ thùng bã ở quán tới điện cực trong pin': 'From the café bin to the battery electrode', 'Theo kế hoạch thử nghiệm của dự án. Dự án đang ở mức sẵn sàng công nghệ TRL 3–4, các thông số là điều kiện trong phòng lab.': 'Based on the project test plan. The project is at technology readiness level TRL 3–4; figures are lab conditions.',
+  'Thu gom tại quán': 'Pickup at the café', 'Theo lịch hẹn': 'Scheduled', 'Đội thu gom đến quán đúng khung giờ đã hẹn, cân bã và cộng điểm xanh cho quán.': 'Our team arrives in the booked window, weighs the grounds and credits green points.', 'Sấy khô và nghiền': 'Dry and grind', 'Loại bỏ nước, nghiền mịn, đóng gói và bảo quản bã cà phê.': 'Remove water, grind finely, pack and store the grounds.', 'Nhiệt phân yếm khí': 'Oxygen-free pyrolysis', 'Nung trong lò không có oxy để thu than sinh học (biochar).': 'Heat in a kiln without oxygen to get biochar.', 'Hoạt hoá bề mặt': 'Surface activation', 'Hoạt hoá rồi nung lần hai để tạo carbon xốp, nhiều lỗ nhỏ cho ion đi qua.': 'Activate and fire again to make porous carbon with tiny pores for ions.', 'Làm điện cực và lắp pin': 'Make electrodes, assemble cells', 'Trộn slurry, phủ lên lá đồng làm anode, lắp pin đồng xu và đo chu kỳ nạp xả.': 'Mix a slurry, coat copper foil as the anode, assemble coin cells and test charge cycles.',
+  // sản phẩm
+  'Kit STEM và pin sinh học': 'STEM kits and bio-batteries', 'Đơn pin đầu tiên nhập mã': 'On your first battery order, enter code', 'giảm 20%, tặng kèm túi vải. Mỗi sản phẩm bán ra trích 5.000đ vào quỹ bảo vệ môi trường.': 'for 20% off and a free tote bag. Every item sold gives 5,000đ to an environmental fund.',
+  'Bán chạy': 'Best seller', 'Kit STEM “Pin Xanh”': 'STEM Kit “Green Battery”', 'Học sinh tự lắp pin từ bã cà phê và thắp sáng đèn LED.': 'Students build a coffee-ground battery and light an LED.', '5 cell pin anode carbon từ bã cà phê': '5 cells with coffee-carbon anodes', 'Sổ hướng dẫn thí nghiệm': 'Experiment guidebook', 'An toàn, không hoá chất độc hại': 'Safe, no toxic chemicals', 'đã gồm VAT': 'VAT included', 'Đặt mua': 'Order', 'Bộ lớp học 10 kit': 'Classroom pack · 10 kits', 'Cho một lớp chia nhóm thực hành, kèm giáo án cho giáo viên.': 'For a whole class working in groups, with a teacher lesson plan.', '10 kit “Pin Xanh”': '10 “Green Battery” kits', 'Giáo án 2 tiết': '2-period lesson plan', 'Giao tận trường': 'Delivered to school', '· tiết kiệm 10%': '· save 10%', 'Đặt trước': 'Pre-order', 'Hộp pin coin cell sinh học': 'Bio coin-cell box', 'Pin đồng xu CR2032 dùng anode carbon từ bã cà phê.': 'CR2032 coin cells with coffee-carbon anodes.', 'Chuẩn kích thước CR2032': 'Standard CR2032 size', 'Không chì, không coban': 'No lead, no cobalt', 'Giao từ quý 1/2027': 'Ships from Q1 2027', 'Tại trường': 'At school', 'Workshop “Đổi rác lấy tri thức”': 'Workshop “Trade Waste for Knowledge”', 'Buổi thực hành tại trường cho học sinh THCS, THPT.': 'Hands-on session at school for middle and high schoolers.', '1–2 triệu đồng/buổi': '1–2 million VND per session', 'Kèm kit cho các nhóm': 'Kits for each group included', 'Báo giá theo số học sinh': 'Quoted by number of students', 'mỗi buổi': 'per session', 'Đặt lịch': 'Book', 'Sắp ra mắt': 'Coming soon', 'Pin hữu cơ AA': 'Organic AA battery', 'Dòng pin tiêu dùng đang nghiên cứu. Đăng ký để được báo giá khi ra mắt.': 'A consumer battery in research. Sign up to get pricing at launch.', 'Phân huỷ sinh học': 'Biodegradable', 'Ưu tiên người đăng ký sớm': 'Early sign-ups first', 'Chưa có giá': 'No price yet', 'nhận thông báo': 'get notified', 'Đăng ký': 'Sign up', 'Đang R&D': 'In R&D', 'Kit pin vi sinh MFC': 'MFC microbial battery kit', 'Vi sinh vật phân huỷ bã cà phê tạo dòng điện, mục tiêu sáng LED 1–3 tháng mỗi lần nạp.': 'Microbes digest coffee grounds to make current; target: an LED lit for 1–3 months per refill.', 'Công nghệ Microbial Fuel Cell': 'Microbial Fuel Cell technology', 'Cho CLB khoa học, phòng lab': 'For science clubs and labs',
+  // quán cà phê
+  'Dành cho chủ quán cà phê': 'For café owners', 'Quán bỏ bã, Sprouty tới lấy': 'You toss the grounds, Sprouty picks them up', 'Đăng ký một lần, rồi hẹn giờ thu gom trên web hoặc app. Bã của quán thành nguyên liệu cho pin, quán nhận điểm xanh để đổi quà.': 'Register once, then book pickups on the web or app. Your grounds become battery material and you earn green points for rewards.', 'Chọn ngày và khung giờ': 'Pick a date and time window', 'Chọn lúc quán vắng khách, kể cả sau giờ đóng cửa.': 'Choose a quiet time, even after closing.', 'Đội thu gom xác nhận': 'Our team confirms', 'Bạn nhận giờ đến cụ thể qua điện thoại hoặc trên app.': 'You get an exact arrival time by phone or in the app.', 'Cân bã tại quán': 'Grounds weighed on site', 'Số ký được ghi lại ngay, quán theo dõi được lượng bã đã gửi mỗi tháng.': 'Weight is recorded immediately so you can track it each month.', 'Đổi điểm lấy quà': 'Redeem points for rewards', '10 điểm mỗi kg. Đổi túi vải, pin, standee “Uống cà phê – Dùng pin sạch”, hoặc tặng kit STEM cho trường gần quán.': '10 points per kg. Redeem a tote bag, batteries, a “Drink coffee – Use clean power” standee, or gift a STEM kit to a nearby school.', 'Hẹn thu gom ngay': 'Book a pickup now', 'Quán bạn thải ra bao nhiêu bã?': 'How much does your café throw out?', 'Số ly pha máy mỗi ngày': 'Espresso shots per day', 'kg bã mỗi tuần': 'kg of grounds a week', 'lần thu gom/tuần': 'pickups a week', 'điểm xanh/tháng': 'green points a month', 'Ước tính khoảng 20 g bã ướt mỗi ly. Khảo sát của dự án: mỗi quán ở Hà Nội thải trung bình 3–5 kg bã mỗi ngày.': 'Assumes about 20 g of wet grounds per cup. Project survey: an average Hanoi café throws out 3–5 kg a day.', 'Lộ trình thu gom mẫu ở Hà Nội': 'Sample pickup route in Hanoi', 'Xe đi từ điểm tập kết, ghé 4 quán theo giờ hẹn rồi quay về. Tuyến đi theo đường phố thật, xe chạy là mô phỏng.': 'The truck leaves the depot, visits 4 cafés on schedule and returns. The route follows real streets; the truck is simulated.', 'Đang tải tuyến…': 'Loading route…', 'Bản đồ lộ trình thu gom bã cà phê mẫu ở Hà Nội': 'Map of a sample coffee-grounds pickup route in Hanoi',
+  // trường học
+  'Giáo dục STEM': 'STEM education', 'Đổi rác lấy tri thức': 'Trade waste for knowledge', 'Thí nghiệm pin chanh, pin khoai tây cho dòng điện rất yếu. Kit COFFEENERGY cho học sinh thấy vật liệu từ rác thải có thể thắp sáng đèn LED thật.': 'Lemon and potato batteries give a very weak current. COFFEENERGY kits show students that waste-derived material can light a real LED.', 'Kit “Pin Xanh” cho lớp học': '“Green Battery” kits for classes', '5 cell pin từ bã cà phê và sổ hướng dẫn. Bộ 10 kit cho cả lớp kèm giáo án 2 tiết.': '5 coffee-ground cells and a guidebook. The 10-kit pack covers a class and includes a 2-period lesson plan.', 'Workshop tại trường': 'Workshops at school', 'Học sinh mang bã cà phê ở nhà đến lớp, tự làm và đo pin. 1–2 triệu đồng mỗi buổi.': 'Students bring grounds from home, build and measure batteries. 1–2 million VND per session.', 'Chuỗi buổi nói chuyện về năng lượng xanh và kinh tế tuần hoàn cho các trường THCS, THPT.': 'A talk series on green energy and the circular economy for middle and high schools.', 'Đặt lịch workshop': 'Book a workshop', 'Mua bộ 10 kit cho lớp': 'Buy the 10-kit class pack', 'Đã thử nghiệm tại 3 trường tiểu học và THCS ở Hà Nội': 'Piloted at 3 primary and middle schools in Hanoi', 'Học sinh nghe giới thiệu về bã cà phê, tự lắp thử pin và nhận giấy khen.': 'Students learned about coffee grounds, built test batteries and received certificates.', 'Trường Tiểu học Đồng Quang': 'Đồng Quang Primary School', 'Phóng to ảnh': 'Enlarge photo',
+  'Học sinh Trường Tiểu học Đồng Quang nhận giấy khen trong buổi chuyên đề cùng COFFEENERGY': 'Đồng Quang Primary School students receive certificates at a COFFEENERGY session', 'Thầy cô và đội COFFEENERGY tại trường THCS': 'Teachers and the COFFEENERGY team at a middle school', 'Học sinh tự lắp thử pin trên bàn thí nghiệm': 'Students building test batteries at the lab table', 'Học sinh giơ tay phát biểu trong buổi chuyên đề': 'Students raising hands during the session', 'Học sinh nhận quà từ COFFEENERGY': 'Students receiving gifts from COFFEENERGY', 'Học sinh trả lời câu hỏi về môi trường': 'Students answering environment questions', 'Sân trường đông học sinh tham gia': 'A schoolyard full of participating students',
+  // kiểm chứng
+  'Đã được kiểm chứng': 'Verified', 'Kiểm nghiệm, báo chí và đối tác': 'Lab tests, press and partners', 'Nguyên liệu đã qua phòng thí nghiệm độc lập, dự án được truyền hình và báo chí đưa tin, đồng hành cùng các cố vấn từ ĐHQGHN và doanh nghiệp.': 'Our raw material passed independent lab tests, the project has been covered on TV and in the press, and it is advised by mentors from VNU Hanoi and industry.', 'Bã cà phê nguyên liệu đạt kiểm nghiệm': 'Raw coffee grounds passed lab tests', 'SGS Việt Nam và Trung tâm kiểm nghiệm AVATEK': 'SGS Vietnam and AVATEK testing center', 'Chì (Pb)': 'Lead (Pb)', 'Không phát hiện': 'Not detected', 'Asen (As)': 'Arsenic (As)', 'Thuỷ ngân (Hg)': 'Mercury (Hg)', 'Cadimi (Cd)': 'Cadmium (Cd)', 'Salmonella, thuốc BVTV': 'Salmonella, pesticides', 'Hợp tác cùng Panasonic': 'Working with Panasonic', 'Gặp mặt hợp tác với tập đoàn Panasonic để nghiên cứu và hoàn thiện sản phẩm pin, tại chương trình Panasonic Green Impact.': 'Met with Panasonic to research and refine the battery, at the Panasonic Green Impact program.', 'người theo dõi fanpage, tăng từ 500': 'fanpage followers, up from 500', 'lượt tiếp cận trên Facebook': 'reach on Facebook', 'lượt thảo luận, chia sẻ về chiến dịch': 'discussions and shares of the campaign', 'Truyền hình và báo chí đưa tin': 'On TV and in the press', 'Phóng sự về dự án pin từ bã cà phê': 'Report on the coffee-ground battery project', 'Trưởng nhóm Nguyễn Anh Khoa chia sẻ về dự án': 'Team lead Nguyễn Anh Khoa talks about the project', 'Bản tin về nhóm nghiên cứu trong phòng lab': 'News segment on the team in the lab', 'Truyền hình QPVN': 'QPVN Television', 'Nhóm dự án trao đổi về mô hình COFFEENERGY': 'The team discusses the COFFEENERGY model', '“Sinh viên làm pin từ bã cà phê”': '“Students make batteries from coffee grounds”', 'Giá trị kép: xử lý rác thải cà phê và tạo năng lượng sạch': 'Double value: handling coffee waste and making clean energy', 'Bộ Công Thương': 'Ministry of Industry and Trade', 'Pin vi sinh MFC từ bã cà phê, không khí độc': 'MFC microbial batteries from coffee grounds, no toxic gases', 'Giáo dục Việt Nam': 'Vietnam Education', '“Giải pháp pin hữu cơ vì một tương lai xanh bền vững”': '“An organic battery solution for a sustainable green future”', 'Đội ngũ cố vấn': 'Mentors', 'Hiệu trưởng Trường Công nghệ thông tin Phenikaa': 'Dean, Phenikaa School of Computing', 'Phó Trưởng Khoa Các khoa học ứng dụng, Trường Quốc tế – ĐHQGHN': 'Vice Dean of Applied Sciences, International School – VNU', 'Chuyên gia Startup và Innovation, Bộ Khoa học và Công nghệ': 'Startup and innovation expert, Ministry of Science and Technology', 'Giảng viên Khoa Tài chính & Kế toán, Trường Quốc tế – ĐHQGHN': 'Lecturer, Finance & Accounting, International School – VNU', 'Giảng viên Trường Đại học Tài nguyên và Môi trường Hà Nội': 'Lecturer, Hanoi University of Natural Resources and Environment', 'Công ty TNHH Grant Thornton (Việt Nam)': 'Grant Thornton (Vietnam) Ltd.', 'Phóng to kết quả SGS': 'Enlarge SGS result', 'Kết quả kiểm nghiệm bã cà phê của SGS Việt Nam': 'SGS Vietnam test result for coffee grounds', 'Phóng to kết quả AVATEK': 'Enlarge AVATEK result', 'Kết quả thử nghiệm của AVATEK': 'AVATEK test result', 'Đội COFFEENERGY nhận chứng nhận tại chương trình Panasonic Green Impact': 'The COFFEENERGY team receiving a certificate at Panasonic Green Impact',
+  // lộ trình phát triển
+  'Từ phòng lab tới kệ hàng': 'From the lab to the shelf', 'Kế hoạch phát triển 2026–2027 theo pitch deck.': '2026–2027 development plan from the pitch deck.', 'Kết nối đối tác': 'Partner outreach', 'Chuỗi cà phê, trường đại học, phòng lab, doanh nghiệp và tổ chức môi trường.': 'Coffee chains, universities, labs, businesses and environmental groups.', 'Thương hiệu, bao bì': 'Brand and packaging', 'Định vị sản phẩm: xanh, tiết kiệm, sáng tạo.': 'Positioning: green, affordable, creative.', 'Workshop trải nghiệm tại trường, thu thập phản hồi và tối ưu sản phẩm.': 'Hands-on school workshops, feedback and product tuning.', 'Mở rộng phân phối': 'Wider distribution', 'Hà Nội, TP.HCM. Ký hợp đồng đại lý đầu tiên.': 'Hanoi and HCMC. First reseller contracts.', 'Chuẩn hoá sản xuất': 'Standardised production', 'Lean, ISO. Nâng chất lượng và đào tạo nhân sự.': 'Lean, ISO. Better quality and staff training.', 'Tăng trưởng': 'Growth', 'Mở rộng đội kỹ thuật, CSKH, R&D. Đẩy mạnh marketing, KOL, workshop.': 'Grow engineering, support and R&D. More marketing, KOLs and workshops.',
+  // cài app & chân trang
+  'Ứng dụng': 'App', 'Cài COFFEENERGY lên màn hình chính': 'Add COFFEENERGY to your home screen', 'Mở toàn màn hình như một app ngay từ màn hình chính, hẹn thu gom chỉ vài lần chạm.': 'Opens full screen like an app from your home screen; book pickups in a few taps.', 'Safari → Chia sẻ → Thêm vào MH chính': 'Safari → Share → Add to Home Screen', 'Chrome → bấm “Cài app” bên dưới': 'Chrome → tap “Install app” below', 'Cài app ngay': 'Install the app', 'Quán của tôi': 'My café', 'Thu gom tiếp theo': 'Next pickup', 'Điểm xanh: 217': 'Green points: 217', 'Còn 283 điểm lên hạng Lá': '283 points to Leaf rank', 'Đội thi COFFEENERGY · Mô hình 3P: People, Planet, Profit': 'Team COFFEENERGY · 3P model: People, Planet, Profit', 'Bản thử nghiệm. Dự án đang ở giai đoạn tiền khởi nghiệp, sản phẩm nhận đặt trước và giao từ quý 1/2027. Dữ liệu bạn nhập trên trang này được lưu trên máy của bạn.': 'Pilot version. The project is pre-startup; products are on pre-order and ship from Q1 2027. Data you enter here is stored on your device.', 'Lên đầu trang ↑': 'Back to top ↑',
+  // chat
+  'Hỏi Sprouty': 'Ask Sprouty', 'Bé mầm xanh của COFFEENERGY': 'COFFEENERGY’s little sprout', 'Gửi': 'Send', 'Hỏi về kit, pin, thu gom bã…': 'Ask about kits, batteries, pickups…', 'Trợ lý trong bảng điều khiển': 'Your dashboard assistant',
+  'Chào bạn, mình là Sprouty. Mình giúp gì được cho bạn?': 'Hi, I’m Sprouty. How can I help?', 'Kit STEM giá bao nhiêu?': 'How much is the STEM kit?', 'Quán gửi bã thế nào?': 'How do cafés give grounds?', 'Pin có an toàn không?': 'Are the batteries safe?', 'Điểm xanh đổi được gì?': 'What can green points get?', 'Đặt workshop': 'Book a workshop', 'Cài app': 'Install app',
+  'Kit STEM “Pin Xanh” giá 200.000đ, gồm 5 cell pin từ bã cà phê và sổ hướng dẫn. Bộ 10 kit cho lớp học giá 1.800.000đ. Hộp pin coin cell 110.000đ, nhận đặt trước.': 'The “Green Battery” STEM kit is 200,000đ with 5 coffee-ground cells and a guidebook. The 10-kit class pack is 1,800,000đ. Coin-cell boxes are 110,000đ on pre-order.', 'Đặt mua kit': 'Order a kit', 'Xem sản phẩm': 'See products', 'Bạn điền tên quán, số điện thoại, ngày và khung giờ ở form “Hẹn thu gom bã cà phê” đầu trang. Đội thu gom gọi xác nhận, đến cân bã tại quán và cộng 10 điểm cho mỗi kg.': 'Fill in your café name, phone, date and time in the “Book a coffee-grounds pickup” form at the top. Our team calls to confirm, weighs the grounds at your café and credits 10 points per kg.', 'Mở form hẹn thu gom': 'Open the pickup form', 'Điện cực của pin làm từ carbon hoạt tính từ bã cà phê, không chứa chì hay coban. Kit STEM dùng cho học sinh, không có hoá chất độc hại. Pin đang ở giai đoạn thử nghiệm trong phòng lab (TRL 3–4).': 'The electrodes use activated carbon from coffee grounds, with no lead or cobalt. The STEM kit is made for students and has no toxic chemicals. The battery is still in lab testing (TRL 3–4).', 'Mỗi kg bã quán gửi được 10 điểm xanh. Quán đổi túi vải (100 điểm), hộp pin (250), standee “Uống cà phê – Dùng pin sạch” (300) hoặc tặng 1 kit STEM cho trường gần quán (400).': 'Each kg earns 10 green points. Redeem a tote bag (100), a battery box (250), a “Drink coffee – Use clean power” standee (300) or gift a STEM kit to a nearby school (400).', 'Workshop “Đổi rác lấy tri thức” tổ chức tại trường, 1–2 triệu đồng mỗi buổi. Học sinh mang bã cà phê đến, tự làm và đo pin.': 'The “Trade Waste for Knowledge” workshop runs at your school for 1–2 million VND per session. Students bring grounds, build and measure batteries.', 'COFFEENERGY cài được lên màn hình chính như một app, trên cả iPhone và Android.': 'COFFEENERGY installs on your home screen like an app, on iPhone and Android.', 'Xem cách cài': 'How to install', 'Sprouty chưa hiểu câu này lắm. Bạn có thể hỏi về giá kit STEM, cách quán gửi bã, điểm xanh, workshop ở trường hoặc cách cài app.': 'Sprouty didn’t quite get that. Ask about STEM kit prices, how cafés give grounds, green points, school workshops or installing the app.', 'Chào bạn, mình là Sprouty, bé mầm xanh của COFFEENERGY. Bạn muốn hỏi về kit STEM, pin hay thu gom bã cho quán?': 'Hi, I’m Sprouty, COFFEENERGY’s little sprout. Want to ask about STEM kits, batteries or café pickups?', 'Mã XANH20 giảm 20% cho đơn pin sinh học đầu tiên, tặng kèm túi vải COFFEENERGY.': 'Code XANH20 takes 20% off your first bio-battery order, with a free COFFEENERGY tote bag.', 'Đặt mua pin': 'Order batteries',
+  'Đơn của tôi tới đâu rồi?': 'Where is my order?', 'Giỏ hàng có gì?': 'What’s in my cart?', 'Mã giảm giá': 'Discount code', 'Kit STEM gồm gì?': 'What’s in the STEM kit?', 'Khi nào xe tới quán?': 'When will the truck arrive?', 'Quán có bao nhiêu điểm?': 'How many points do we have?', 'Đổi được quà gì?': 'What rewards can we get?', 'Workshop của trường': 'Our school’s workshops', 'Giáo án gồm gì?': 'What’s in the lesson plan?', 'Mua bộ 10 kit': 'Buy the 10-kit pack', 'Giá workshop': 'Workshop price', 'Hôm nay đi mấy quán?': 'How many cafés today?', 'Yêu cầu nào đang chờ?': 'Which requests are pending?', 'Quán nào gửi nhiều bã nhất?': 'Which café gives the most?', 'Mở lộ trình': 'Open route', 'Xem đơn hàng': 'View orders', 'Mở giỏ hàng': 'Open cart', 'Vào cửa hàng': 'Go to shop', 'Xem xe trên bản đồ': 'See the truck on the map', 'Đổi quà': 'Rewards', 'Mở trang đặt lịch': 'Open booking', 'Mở trang đổi quà': 'Open rewards', 'Xem lịch sử': 'View history', 'Xem workshop': 'View workshops', 'Xem giáo án': 'View lesson plan', 'Mở cửa hàng': 'Open shop', 'Mở bảng điều phối': 'Open dispatch board', 'Xem quán tham gia': 'View cafés', 'Thêm vào giỏ': 'Add to cart',
+  'Kit STEM “Pin Xanh” gồm 5 cell pin từ bã cà phê và sổ hướng dẫn thí nghiệm, giá 200.000đ.': 'The “Green Battery” STEM kit has 5 coffee-ground cells and an experiment guidebook, for 200,000đ.', 'Giáo án 2 tiết gồm 5 phần: vì sao bã thành pin, so sánh pin chanh, lắp 5 cell nối tiếp, thắp đèn LED, và kinh tế tuần hoàn.': 'The 2-period plan has 5 parts: why grounds make batteries, lemon-battery comparison, wiring 5 cells in series, lighting an LED, and the circular economy.', 'Bộ lớp học 10 kit giá 1.800.000đ, kèm giáo án và giao tận trường.': 'The 10-kit class pack is 1,800,000đ with a lesson plan and delivery to school.', 'Bạn chưa có đơn nào.': 'You have no orders yet.', 'Giỏ hàng đang trống.': 'Your cart is empty.', 'Quán chưa có lịch thu gom nào sắp tới.': 'No upcoming pickups for your café.', 'Trường chưa đặt workshop nào.': 'Your school hasn’t booked a workshop.', 'Chưa có điểm nào đã hẹn cho hôm nay và mai.': 'No confirmed stops for today or tomorrow.', 'Không có yêu cầu nào đang chờ.': 'No pending requests.', 'Chưa có lần thu gom nào hoàn tất.': 'No completed pickups yet.', 'Chọn ngày, khung giờ và ước tính số ký, đội thu gom sẽ xác nhận giờ đến.': 'Pick a date, window and estimated weight; our team will confirm the time.',
+  // đăng nhập
+  'Bã hôm nay, năng lượng ngày mai.': 'Grounds today, energy tomorrow.', 'Cùng Sprouty gieo năng lượng xanh.': 'Grow green energy with Sprouty.', 'Một tài khoản để mua kit STEM, đặt pin sinh học, hẹn thu gom bã cho quán và theo dõi điểm xanh.': 'One account to buy STEM kits, order bio-batteries, book café pickups and track green points.', 'Chào mừng trở lại': 'Welcome back', 'Đăng nhập để xem đơn hàng, lịch thu gom bã và điểm xanh của bạn.': 'Sign in to see your orders, pickups and green points.', 'Mật khẩu': 'Password', 'Hiện': 'Show', 'Ẩn': 'Hide', 'Đăng nhập nhanh': 'Quick sign-in', 'Chưa có tài khoản?': 'No account yet?', 'Tạo tài khoản': 'Create account', 'Miễn phí. Chọn vai trò để COFFEENERGY gợi ý đúng việc cho bạn.': 'Free. Pick a role so COFFEENERGY shows you the right tools.', 'Bạn là': 'I am a', 'Khách mua hàng': 'Customer', 'Chủ quán cà phê': 'Café owner', 'Đội thu gom': 'Pickup team', 'Họ và tên': 'Full name', 'Tên trường / trung tâm': 'School / center name', 'Mật khẩu (ít nhất 8 ký tự)': 'Password (at least 8 characters)', 'Tôi đồng ý nhận thông tin đơn hàng và chương trình điểm xanh qua email, số điện thoại.': 'I agree to receive order and green-points updates by email or phone.', 'Tôi đồng ý để đội thu gom cân bã tại quán và ghi nhận điểm xanh theo số ký thực tế.': 'I agree that the team weighs grounds at my café and credits points by actual weight.', 'Đã có tài khoản?': 'Already have an account?', 'Đăng nhập COFFEENERGY': 'Sign in to COFFEENERGY', 'Nhập họ và tên.': 'Enter your full name.', 'Email chưa đúng định dạng.': 'That email doesn’t look right.', 'Nhập mật khẩu.': 'Enter your password.', 'Mật khẩu không đúng.': 'Wrong password.', 'Chưa có tài khoản với email này. Bạn có thể đăng ký.': 'No account with this email. You can sign up.', 'Mật khẩu cần ít nhất 8 ký tự.': 'Password needs at least 8 characters.', 'Vui lòng đánh dấu đồng ý ở ô bên trên.': 'Please tick the agreement box above.', 'Email này đã có tài khoản. Hãy đăng nhập.': 'This email already has an account. Please sign in.', 'Nhập tên quán.': 'Enter your café name.', 'Nhập tên trường hoặc trung tâm.': 'Enter your school or center name.', 'Phụ huynh học sinh lớp 7': 'Parent of a 7th grader', 'Giáo viên Vật lý, CLB STEM': 'Physics teacher, STEM club', 'Đội thu gom nội thành Hà Nội': 'Inner-Hanoi pickup team',
+  // modal, cài đặt, cài app
+  'Đóng': 'Close', 'Ngôn ngữ': 'Language', 'Đổi giao diện sáng / tối': 'Toggle light / dark', 'Tài khoản': 'Account', 'Giao diện': 'Appearance', 'Sáng': 'Light', 'Tối': 'Dark', 'Theo máy': 'System', 'Tốc độ xe trên bản đồ': 'Map truck speed', 'Chậm': 'Slow', 'Vừa': 'Normal', 'Nhanh': 'Fast', 'Xe chạy là mô phỏng theo giờ hẹn, không phải GPS.': 'The truck is simulated from appointment times, not GPS.', 'Hiệu ứng chuyển động': 'Motion effects', 'Bật': 'On', 'Giảm': 'Reduced', 'Giảm hiệu ứng giúp máy yếu chạy mượt hơn: tắt xe chạy tự động và hiệu ứng cuộn.': 'Reduced motion helps slower devices: no auto-moving truck or scroll effects.', 'Dữ liệu trên máy này': 'Data on this device', 'Đơn hàng, lịch thu gom và tài khoản demo đang lưu trong trình duyệt của bạn.': 'Orders, pickups and demo accounts are stored in your browser.', 'Xoá dữ liệu demo': 'Clear demo data', 'Bấm lần nữa để xoá': 'Tap again to clear', 'COFFEENERGY · bản thử nghiệm': 'COFFEENERGY · pilot version', 'Đổi tài khoản': 'Switch account', 'Đăng xuất': 'Sign out', 'Đăng xuất, về trang giới thiệu': 'Sign out to the homepage', 'Tài khoản và cài đặt': 'Account and settings',
+  'Cài COFFEENERGY': 'Install COFFEENERGY', 'Trên máy tính (Chrome, Edge)': 'On a computer (Chrome, Edge)', 'Bấm biểu tượng cài đặt ở cuối thanh địa chỉ, chọn “Cài đặt”.': 'Click the install icon at the end of the address bar, then “Install”.', 'Trên iPhone': 'On iPhone', 'Mở bằng Safari → Chia sẻ → “Thêm vào MH chính”.': 'Open in Safari → Share → “Add to Home Screen”.', 'Chia sẻ': 'Share', 'Trên Android': 'On Android', 'Mở bằng Chrome → menu ⋮ → “Cài đặt ứng dụng”.': 'Open in Chrome → menu ⋮ → “Install app”.', 'Bấm nút Chia sẻ': 'Tap the Share button', 'Ở thanh dưới cùng của Safari (hoặc cạnh thanh địa chỉ).': 'In Safari’s bottom bar (or next to the address bar).', 'Chọn “Thêm vào MH chính”': 'Choose “Add to Home Screen”', 'Kéo xuống danh sách nếu chưa thấy.': 'Scroll the list if you don’t see it.', 'Thêm vào MH chính': 'Add to Home Screen', 'Bấm “Thêm”': 'Tap “Add”', 'Biểu tượng COFFEENERGY xuất hiện trên màn hình chính.': 'The COFFEENERGY icon appears on your home screen.', 'Mở menu ⋮ của Chrome': 'Open Chrome’s ⋮ menu', 'Góc trên bên phải.': 'Top right corner.', 'Chọn “Cài đặt ứng dụng”': 'Choose “Install app”', 'Hoặc “Thêm vào màn hình chính”.': 'Or “Add to Home screen”.', 'Cài đặt ứng dụng': 'Install app', 'Bấm “Cài đặt”': 'Tap “Install”', 'Mở app từ màn hình chính như mọi app khác.': 'Open it from your home screen like any app.', 'Trang đang mở trong khung xem trước nên chưa cài được. Mở trang bằng đường link riêng của dự án rồi làm theo các bước dưới đây.': 'This page is in a preview frame, so it can’t be installed here. Open the project’s own link and follow the steps below.', 'Bạn đang mở trong Zalo hoặc Facebook. Bấm ⋯ ở góc trên, chọn “Mở bằng trình duyệt” trước rồi cài.': 'You’re in Zalo or Facebook. Tap ⋯ at the top and choose “Open in browser” first.',
+  'Số lượng': 'Quantity', 'Họ tên': 'Full name', 'Địa chỉ giao': 'Delivery address', 'Học sinh mang bã cà phê đến lớp, tự làm và đo pin. Chúng mình gọi lại trong 1–2 ngày để chốt lịch và báo giá.': 'Students bring coffee grounds to class, build and measure batteries. We’ll call within 1–2 days to confirm and quote.', 'Người liên hệ': 'Contact person', 'Ngày mong muốn': 'Preferred date', 'Số học sinh': 'Number of students', 'Xong': 'Done', 'Đã gửi yêu cầu thu gom': 'Pickup request sent', 'Mã yêu cầu': 'Request ID', 'Đã nhận đơn hàng': 'Order received', 'Mã đơn': 'Order ID', 'Đã gửi yêu cầu workshop': 'Workshop request sent', 'Đã đặt hàng': 'Order placed', 'Nhập họ tên và địa chỉ giao hàng.': 'Enter your name and delivery address.', 'Số điện thoại cần 9–15 chữ số.': 'Phone number needs 9–15 digits.', 'Nhập tên quán để đội thu gom tìm đúng chỗ.': 'Enter the café name so the team can find you.', 'Nhập tên trường và người liên hệ.': 'Enter the school and contact person.', 'Chọn một khung giờ.': 'Pick a time window.', 'Nhập tên trường.': 'Enter the school name.', 'Nhập số ký lớn hơn 0, ví dụ 7,5.': 'Enter a weight above 0, e.g. 7.5.',
+  // dashboard chung
+  'Điều hướng COFFEENERGY': 'COFFEENERGY navigation', 'Mở menu': 'Open menu', 'Tải ứng dụng': 'Get the app', 'Thông báo': 'Notifications', 'Điều hướng nhanh': 'Quick navigation', 'Đánh dấu đã đọc': 'Mark all read', 'Chưa có thông báo nào.': 'No notifications yet.', 'vừa xong': 'just now', 'Mẹo của Sprouty': 'Sprouty’s tip', 'Nhắc việc': 'Reminder', 'Lọc': 'Filter', 'mẫu': 'sample', 'Tất cả': 'All', 'demo': 'demo',
+  'Tổng quan': 'Overview', 'Cửa hàng': 'Shop', 'Giỏ hàng': 'Cart', 'Đơn hàng': 'Orders', 'Đặt lịch thu gom': 'Book a pickup', 'Lịch sử thu gom': 'Pickup history', 'Lớp học xanh': 'Green classroom', 'Workshop': 'Workshops', 'Bảng điều phối': 'Dispatch board', 'Lộ trình hôm nay': 'Today’s route', 'Đơn & workshop': 'Orders & workshops', 'Quán tham gia': 'Partner cafés', 'Quán': 'Café', 'Lịch sử': 'History', 'Lớp học': 'Class', 'Điều phối': 'Dispatch', 'Đơn': 'Orders',
+  'Đơn hàng, ưu đãi và gợi ý cho bạn': 'Your orders, offers and suggestions', 'Kit STEM, pin sinh học và workshop': 'STEM kits, bio-batteries and workshops', 'Kiểm tra và đặt hàng': 'Review and check out', 'Theo dõi trạng thái giao hàng': 'Track delivery status', 'Bã đã gửi, điểm xanh và lịch sắp tới': 'Grounds given, green points and upcoming pickups', 'Chọn ngày, khung giờ, đội thu gom xác nhận': 'Pick a date and window; the team confirms', 'Mọi lần hẹn và số ký đã cân': 'Every booking and weighed amount', '10 điểm cho mỗi kg bã': '10 points per kg of grounds', 'Kit, giáo án và workshop của trường': 'Your school’s kits, lesson plan and workshops', '“Đổi rác lấy tri thức” tại trường': '“Trade Waste for Knowledge” at your school', 'Yêu cầu thu gom chờ xác nhận và đã hẹn': 'Pickup requests pending and confirmed', 'Các điểm cần đến, theo giờ hẹn': 'Stops to visit, by appointment time', 'Chuyển trạng thái để khách theo dõi': 'Update status so customers can follow', 'Lượng bã và điểm xanh theo quán': 'Grounds and green points by café',
+  // khách
+  'Mỗi bộ kit là 5 cell pin từ bã cà phê, đủ để con tự lắp và thắp sáng đèn LED trên bàn học.': 'Each kit has 5 coffee-ground cells, enough for your child to build and light an LED at their desk.', 'Đơn đang xử lý': 'Orders in progress', 'Tổng đơn': 'Total orders', 'Đã chi': 'Spent', 'nghìn đ': 'thousand đ', 'Góp quỹ môi trường': 'Environment fund', '5.000đ mỗi sản phẩm': '5,000đ per item', 'Đơn gần nhất': 'Latest order', 'Ưu đãi cho bạn': 'Offers for you', 'Gợi ý': 'Suggestions', 'Mã XANH20 · giảm 20% đơn pin đầu tiên': 'Code XANH20 · 20% off your first battery order', 'Áp dụng cho hộp pin coin cell sinh học, tặng kèm túi vải COFFEENERGY.': 'For the bio coin-cell box, with a free COFFEENERGY tote bag.', 'Thêm hộp pin vào giỏ': 'Add battery box to cart', 'Giới thiệu cho trường của con: học sinh mang bã cà phê đến lớp, tự làm và đo pin.': 'Suggest it to your child’s school: students bring grounds, build and measure batteries.', 'Gửi yêu cầu': 'Send request', 'Chưa có đơn nào': 'No orders yet', 'Đơn bạn đặt sẽ hiện ở đây kèm trạng thái giao.': 'Your orders will appear here with delivery status.', 'Đơn bạn đặt sẽ hiện ở đây kèm trạng thái giao hàng.': 'Your orders will appear here with delivery status.', 'Mua kit STEM': 'Buy a STEM kit',
+  'Chờ xác nhận': 'Awaiting confirmation', 'Đang chuẩn bị': 'Preparing', 'Đang giao': 'Out for delivery', 'Hoàn tất': 'Completed', 'Đặt hàng': 'Ordered', 'Chuẩn bị': 'Preparing', 'Giao': 'Shipping', 'Nhận': 'Received',
+  'Giỏ hàng đang trống': 'Your cart is empty', 'Thêm một kit STEM hoặc hộp pin để bắt đầu.': 'Add a STEM kit or battery box to get started.', 'Thanh toán': 'Checkout', 'Áp dụng': 'Apply', 'Tạm tính': 'Subtotal', 'Phí giao': 'Shipping', 'Miễn phí': 'Free', 'Tổng cộng': 'Total', 'Tiền mặt khi nhận hàng': 'Cash on delivery', 'Chuyển khoản ngân hàng': 'Bank transfer', 'Ví điện tử': 'E-wallet', 'Gửi kèm pin cũ để COFFEENERGY thu hồi và xử lý đúng cách.': 'Send old batteries along so COFFEENERGY can recycle them properly.', 'Bớt': 'Less', 'Thêm': 'More', 'XANH20 (−20% pin, kèm túi vải)': 'XANH20 (−20% batteries, free tote)', 'Mã không đúng. Thử XANH20.': 'Invalid code. Try XANH20.', 'Mã XANH20 chỉ dùng cho đơn pin đầu tiên.': 'XANH20 is only for your first battery order.', 'XANH20 áp dụng cho hộp pin sinh học.': 'XANH20 applies to the bio-battery box.', 'Đã áp dụng XANH20': 'XANH20 applied',
+  // quán
+  'Lần thu gom tới:': 'Next pickup:', 'Tổng bã đã gửi': 'Total grounds given', 'Tháng này': 'This month', 'Số lần thu gom': 'Pickups', 'Điểm xanh hiện có': 'Green points', 'điểm': 'points', 'Số ký bã mỗi lần thu gom': 'Kg collected per pickup', '8 lần gần nhất': 'Last 8 pickups', 'Hộ chiếu Năng lượng Xanh': 'Green Energy Passport', 'Hạng cao nhất. Cảm ơn quán đã đồng hành.': 'Top rank. Thank you for being with us.', 'Xe thu gom': 'Pickup truck', 'Mô phỏng theo giờ hẹn': 'Simulated from booking', 'Chờ đội xác nhận lịch': 'Waiting for confirmation', 'Xe tới quán lúc': 'Truck arrives at', 'Lịch sắp tới': 'Upcoming', 'Không có lịch nào.': 'Nothing scheduled.', 'Chưa có lần thu gom nào': 'No pickups yet', 'Biểu đồ hiện sau lần cân bã đầu tiên.': 'The chart appears after the first weigh-in.', 'Chưa có lịch thu gom nào sắp tới. Đặt lịch để đội thu gom ghé quán.': 'No upcoming pickups. Book one so the team can come by.', 'Đã hẹn giờ': 'Confirmed', 'Đã thu gom': 'Collected', 'Đã huỷ': 'Cancelled',
+  'Hôm nay': 'Today', 'Mai': 'Tmrw', 'CN': 'Sun', 'T2': 'Mon', 'T3': 'Tue', 'T4': 'Wed', 'T5': 'Thu', 'T6': 'Fri', 'T7': 'Sat', 'Ước tính:': 'Estimate:', 'Số túi / thùng': 'Bags / bins', 'Ghi chú cho đội thu gom': 'Note for the pickup team', 'VD: để ở cửa sau, gọi trước 10 phút': 'e.g. at the back door, call 10 minutes ahead', 'Lặp lại hằng tuần (tạo sẵn 4 tuần)': 'Repeat weekly (creates 4 weeks)', 'Gửi yêu cầu thu gom': 'Send pickup request', 'Chuẩn bị bã đúng cách': 'Preparing grounds properly', 'Để ráo nước': 'Drain the water', 'Bã khô nhanh hơn khi vào lò sấy 60–100°C.': 'Drier grounds dry faster at 60–100°C.', 'Không lẫn rác khác': 'Keep other waste out', 'Giấy lọc, ống hút, đá viên, sữa làm hỏng mẻ nhiệt phân.': 'Filter paper, straws, ice and milk spoil the pyrolysis batch.', 'Buộc kín túi': 'Tie bags shut', 'Để chỗ thoáng, tránh nắng.': 'Keep in a ventilated spot out of the sun.', 'Gom 2–3 ngày một lần': 'Collect every 2–3 days', 'Bã để lâu dễ lên mốc.': 'Old grounds go mouldy.',
+  'Trạng thái': 'Status', 'Ước tính': 'Estimate', 'Cân thực tế': 'Weighed', 'Điểm': 'Points', 'Huỷ': 'Cancel', 'Chưa có lịch thu gom nào': 'No pickups yet', 'Đặt lịch đầu tiên để đội thu gom ghé quán.': 'Book your first pickup so the team can come by.', 'Đã huỷ lịch': 'Pickup cancelled', 'Quà được đội thu gom mang tới quán trong lần thu gom tiếp theo.': 'Rewards are brought to your café at the next pickup.', 'Túi vải COFFEENERGY': 'COFFEENERGY tote bag', 'Túi canvas cho nhân viên hoặc tặng khách.': 'A canvas bag for staff or customers.', 'Trị giá 110.000đ, giao khi có hàng.': 'Worth 110,000đ, delivered when in stock.', 'Standee “Uống cà phê – Dùng pin sạch”': '“Drink coffee – Use clean power” standee', 'Kèm chứng nhận Quán Xanh để trưng tại quầy.': 'With a Green Café certificate for your counter.', 'Tặng 1 kit STEM cho trường gần quán': 'Gift a STEM kit to a nearby school', 'Ghi tên quán trong buổi trao tặng.': 'Your café is named at the handover.', 'Đã đổi': 'Redeemed', 'Xác nhận đổi': 'Confirm', 'Để sau': 'Later', 'Đã đổi quà. Đội thu gom sẽ mang tới quán.': 'Reward redeemed. The team will bring it to your café.', 'Mầm': 'Sprout', 'Lá': 'Leaf', 'Cây': 'Tree', 'Rừng': 'Forest',
+  // trường
+  'Học sinh tự lắp pin từ bã cà phê, đo dòng điện và thắp sáng đèn LED. Bài học gắn với năng lượng tái tạo và kinh tế tuần hoàn.': 'Students build coffee-ground batteries, measure current and light an LED, linking to renewable energy and the circular economy.', 'Thêm bộ 10 kit vào giỏ': 'Add the 10-kit pack to cart', 'Kit đã đặt': 'Kits ordered', 'Workshop sắp tới': 'Upcoming workshops', 'Học sinh tham gia': 'Students taking part', 'Giá workshop': 'Workshop price', 'triệu đ/buổi': 'million đ/session', 'Giáo án 2 tiết đi kèm bộ kit': '2-period lesson plan included', 'Vì sao bã cà phê thành pin được?': 'Why can coffee grounds become a battery?', 'Bã giàu carbon hữu cơ. Nung yếm khí 600–700°C tạo than xốp làm điện cực.': 'Grounds are rich in organic carbon. Oxygen-free heating at 600–700°C makes porous carbon electrodes.', 'So sánh với pin chanh, pin khoai tây': 'Compare with lemon and potato batteries', 'Học sinh thấy vì sao vật liệu điện cực quyết định dòng điện.': 'Students see why electrode material sets the current.', 'Lắp 5 cell nối tiếp': 'Wire 5 cells in series', 'Nối các cell trong kit, đo điện áp từng bước bằng đồng hồ vạn năng.': 'Connect the cells and measure voltage step by step with a multimeter.', 'Thắp sáng đèn LED': 'Light the LED', 'Ghi lại thời gian đèn sáng, thảo luận cách cải tiến.': 'Record how long it stays lit and discuss improvements.', 'Kinh tế tuần hoàn': 'Circular economy', 'Rác của quán cà phê trở thành nguyên liệu. Học sinh đề xuất ý tưởng tái chế khác.': 'Café waste becomes raw material. Students propose other recycling ideas.', 'Chưa đặt workshop': 'No workshop booked', 'Một buổi 1–2 triệu đồng, kèm kit cho các nhóm.': '1–2 million VND per session, kits for each group included.', 'Chờ gọi chốt lịch': 'Awaiting call to confirm', 'Đã chốt lịch': 'Confirmed', 'Học sinh mang bã cà phê ở nhà đến lớp, tự làm và đo pin. COFFEENERGY gọi lại trong 1–2 ngày để chốt lịch và báo giá.': 'Students bring grounds from home, build and measure batteries. COFFEENERGY will call within 1–2 days to confirm and quote.', 'Cấp học': 'School level', 'THCS': 'Middle school', 'THPT': 'High school', 'Trung tâm STEM / CLB': 'STEM center / club', 'Yêu cầu đã gửi': 'Requests sent', 'Chưa có yêu cầu nào': 'No requests yet', 'Yêu cầu bạn gửi sẽ hiện ở đây.': 'Your requests will appear here.',
+  // đội thu gom
+  'Gọi quán trước 10 phút, cân bã ngay tại quán và nhập số ký.': 'Call the café 10 minutes ahead, weigh on site and enter the weight.', 'Chờ xác nhận ': 'Awaiting confirmation', 'Hẹn hôm nay': 'Booked today', 'Bã thu tháng này': 'Collected this month', 'túi': 'bags', 'Gọi': 'Call', 'Xác nhận giờ đến': 'Confirm arrival time', 'Từ chối': 'Decline', 'Đã thu · nhập số ký': 'Collected · enter weight', 'Đổi giờ': 'Change time', 'Không có yêu cầu mới.': 'No new requests.', 'Chưa có lịch đã hẹn.': 'Nothing confirmed yet.', 'Điểm cần đến': 'Stops', 'Bã dự kiến': 'Expected grounds', 'Quãng đường': 'Distance', 'Xong dự kiến': 'Expected finish', 'Bản đồ lộ trình': 'Route map', 'Cho xe chạy': 'Start the truck', 'Cho xe chạy tiếp': 'Resume', 'Tạm dừng': 'Pause', 'Chạy lại': 'Run again', 'Về điểm xuất phát': 'Back to depot', 'Tốc độ': 'Speed', 'Đang tính tuyến đường…': 'Calculating route…', 'Thứ tự ghé quán': 'Stop order', 'Xe ở điểm tập kết': 'Truck at the depot', 'Đã ghé đủ các quán': 'All cafés visited', 'Điểm tập kết COFFEENERGY': 'COFFEENERGY depot', 'Chưa có điểm nào': 'No stops yet', 'Xác nhận giờ cho các yêu cầu ở Bảng điều phối để lên lộ trình.': 'Confirm times on the dispatch board to build a route.', 'Tổng': 'Total', 'Đã gọi, chốt lịch': 'Called, confirmed', 'Chưa có đơn hàng.': 'No orders yet.', 'Chưa có yêu cầu workshop.': 'No workshop requests.', 'Bản đồ quán tham gia': 'Partner café map', 'Chấm to hơn là quán gửi nhiều bã hơn': 'Bigger dots give more grounds', 'Khu vực': 'Area', 'Điện thoại': 'Phone', 'Lần thu': 'Pickups', 'Tổng bã': 'Total grounds', 'Lịch mở': 'Open', 'Cân được': 'Weighed', 'Giờ đội đến': 'Arrival time', 'Xác nhận và báo quán': 'Confirm and notify café', 'Số ký cân được': 'Weighed (kg)', 'Lưu và cộng điểm': 'Save and credit points', 'Đã thu gom ': 'Collected', 'Đã từ chối yêu cầu': 'Request declined', 'Đã cập nhật đơn': 'Order updated', 'Đã chốt lịch workshop': 'Workshop confirmed', 'Tiền mặt': 'Cash', 'Chuyển khoản': 'Transfer', 'Thu hồi pin cũ': 'Collect old batteries',
+  'Pin sinh học': 'Bio-batteries', 'Cài COFFEENERGY lên điện thoại': 'Install COFFEENERGY on your phone', 'Nhập XANH20 cho đơn pin đầu tiên, giảm 20% kèm túi vải.': 'Enter XANH20 on your first battery order for 20% off and a free tote.', 'Để bã ráo nước và buộc kín túi, đội thu gom cân nhanh hơn.': 'Drain the grounds and tie bags shut so the team can weigh faster.', 'Dặn học sinh mang bã cà phê ở nhà đến buổi workshop.': 'Ask students to bring coffee grounds from home to the workshop.',
+  'Đội thu gom đã xác nhận: ngày mai, đến lúc 21:00.': 'The team confirmed: tomorrow at 21:00.', 'Quán Mộc và Sáng Roastery vừa đặt lịch thu gom.': 'Quán Mộc and Sáng Roastery just booked pickups.', 'Đơn Kit STEM “Pin Xanh” × 2 đang được giao.': 'Your STEM Kit “Green Battery” × 2 order is out for delivery.', 'Đã đăng xuất': 'Signed out', 'Hồ Tây': 'West Lake', 'Hồ Gươm': 'Hoan Kiem Lake', 'Sông Hồng': 'Red River', 'Mở form hẹn thu gom ': 'Open the pickup form'
+};
+
+(function () {
+  const DOW = [['Chủ nhật', 'Sun'], ['Thứ Hai', 'Mon'], ['Thứ Ba', 'Tue'], ['Thứ Tư', 'Wed'], ['Thứ Năm', 'Thu'], ['Thứ Sáu', 'Fri'], ['Thứ Bảy', 'Sat']];
+  const SUB = [['(sau giờ đóng)', '(after closing)'], ['Ngày mai', 'Tomorrow'], ['ngày mai', 'tomorrow'], ['Hôm nay', 'Today'], ...DOW, ['tới dự kiến', 'ETA'], ['xuất phát', 'departs'], ['(ví dụ)', '(example)'], ['Đội đến lúc', 'Team arrives at'], ['đội đến lúc', 'team arrives at'], ['khoảng', 'about'], ['liên hệ', 'contact'], ['học sinh', 'students'], ['ước tính', 'est.'], ['Hẹn ', 'At '], ['hẹn ', 'at '], ['Khung ', 'Window '], ['khung ', 'window '], ['gọi ', 'call '], ['phút trước', 'min ago'], ['giờ trước', 'h ago'], ['ngày trước', 'days ago'], [' túi', ' bags'], [' sản phẩm', ' items'], [' đơn', ' orders'], [' yêu cầu', ' requests'], ['kg bã', 'kg of grounds'], [' điểm', ' points'], ['th10', 'Oct'], ['th11', 'Nov'], ['th12', 'Dec'], ['th1', 'Jan']];
+  const NAMES = ['Cà Phê Ngõ 42', 'Quán Mộc', 'Sáng Roastery', 'Trạm Cà Phê Đống Đa', 'Minh Anh', 'Chị Lan', 'Thầy Khoa', 'Anh Tuấn', 'THCS Lê Quý Đôn', 'Hà Nội', 'Ba Đình', 'Hoàn Kiếm', 'Đống Đa', 'Hai Bà Trưng', 'Cầu Giấy', 'Thanh Xuân', 'Tây Hồ', 'Long Biên', 'Hoàng Mai', 'Nam Từ Liêm', 'Bắc Từ Liêm', 'Hà Đông', 'đ'];
+  const VN = /[àáạảãâầấậẩẫăằắặẳẵèéẹẻẽêềếệểễìíịỉĩòóọỏõôồốộổỗơờớợởỡùúụủũưừứựửữỳýỵỷỹđ]/i;
+  const sub = s => { let o = s; for (const [a, b] of SUB) o = o.split(a).join(b); return o; };
+  // chỉ nhận bản dịch khi không còn sót tiếng Việt (trừ tên riêng)
+  const clean = s => { let t = s; for (const n of NAMES) t = t.split(n).join(''); return !VN.test(t.replace(/\d+[.,]?\d*đ/g, '')); };
+  const tr = s => { const k = s.trim(); if (window.I18N_EN[k] != null) return window.I18N_EN[k]; const o = sub(k); return clean(o) ? o : k; };
+  window.I18N_TR = tr;
+  window.I18N_SUBFALLBACK = s => { const o = sub(s); return o !== s && clean(o) ? o : null; };
+  const rank = r => ({ 'Mầm': 'Sprout', 'Lá': 'Leaf', 'Cây': 'Tree', 'Rừng': 'Forest' }[r] || r);
+  const roleTxt = { 'đơn hàng và giỏ hàng': 'orders and cart', 'lịch thu gom, điểm xanh của quán': 'pickups and green points', 'workshop và kit của trường': 'workshops and kits', 'yêu cầu thu gom và lộ trình hôm nay': 'pickup requests and today’s route' };
+  const P = (re, f) => [re, f];
+  window.I18N_PAT = [
+    P('Chào (.+), hôm nay mình làm pin nhé\\?', (m, a) => `Hi ${a}, ready to build a battery today?`),
+    P('Xem (\\d+) đơn đang xử lý', (m, a) => `View ${a} order(s) in progress`),
+    P('Đơn (\\w+) · (.+) · (.+)', (m, a, b, c) => `Order ${a} · ${b} · ${c}`),
+    P('Đã thêm “(.+)” vào giỏ', (m, a) => `Added “${tr(a)}” to cart`),
+    P('(\\d+) sản phẩm', (m, a) => `${a} item(s)`),
+    P('(.+) được trích vào quỹ môi trường', (m, a) => `${a} goes to the environment fund`),
+    P('Đặt hàng · (.+)', (m, a) => `Place order · ${a}`),
+    P('Tạm tính (.+?)( · XANH20 −(.+) \\(kèm túi vải\\))?( · XANH20 chỉ áp dụng cho pin sinh học)? · phí giao (.+) ·', (m, a, b, c, d, e) => `Subtotal ${a}${b ? ` · XANH20 −${c} (free tote)` : ''}${d ? ' · XANH20 only applies to bio-batteries' : ''} · shipping ${e === 'miễn phí' ? 'free' : e} ·`),
+    P('Tổng (.+)', (m, a) => `Total ${a}`),
+    P('(.+) mỗi (sản phẩm|bộ)\\. Chúng mình gọi xác nhận trước khi giao\\.', (m, a, b) => `${a} per ${b === 'bộ' ? 'pack' : 'item'}. We’ll call to confirm before delivery.`),
+    P('Đặt mua: (.+)', (m, a) => `Order: ${tr(a)}`),
+    P('Bạn đang có (\\d+) điểm xanh', (m, a) => `You have ${a} green points`),
+    P('Còn (\\d+) điểm nữa lên hạng (.+)\\.', (m, a, b) => `${a} more points to reach ${rank(b)}.`),
+    P('Hạng (.+)', (m, a) => `${rank(a)} rank`),
+    P('(\\d+) điểm', (m, a) => `${a} points`),
+    P('\\+(\\d+) điểm', (m, a) => `+${a} points`),
+    P('Dùng (\\d+) điểm\\. Bạn còn lại (-?\\d+) điểm\\.', (m, a, b) => `Uses ${a} points. You’ll have ${b} left.`),
+    P('Đổi “(.+)”\\?', (m, a) => `Redeem “${tr(a)}”?`),
+    P(', đội đến lúc (.+)\\.', (m, a) => `, team arrives at ${a}.`),
+    P(', (.+)\\. Quãng đường (.+) km, khoảng (\\d+) phút chạy\\.', (m, a, b, c) => `, ${tr(a)}. ${b} km, about ${c} min drive.`),
+    P('Quán cách điểm tập kết khoảng (.+) km\\. Khi đội thu gom xác nhận, xe sẽ hiện trên bản đồ\\.', (m, a) => `Your café is about ${a} km from the depot. Once the team confirms, the truck shows on the map.`),
+    P('Xin chào (.+)', (m, a) => `Hello ${a}`),
+    P('Chào (.+), mình là Sprouty\\. Mình xem được (.+) của bạn\\. Hỏi mình nhé\\.', (m, a, b) => `Hi ${a}, I’m Sprouty. I can see your ${roleTxt[b] || b}. Ask me anything.`),
+    P('Lớp học xanh của (.+)', (m, a) => `Green classroom at ${a}`),
+    P('Đang mở \\((\\d+)\\)', (m, a) => `Open (${a})`), P('Đã xong \\((\\d+)\\)', (m, a) => `Done (${a})`),
+    P('(\\d+) đơn', (m, a) => `${a} orders`), P('(\\d+) yêu cầu', (m, a) => `${a} requests`),
+    P('Chuyển sang “(.+)”', (m, a) => `Move to “${tr(a)}”`),
+    P('(.+) · ước tính (.+) kg', (m, a, b) => `${tr(a)} · est. ${b} kg`),
+    P('Hôm nay và mai có (\\d+) điểm đã hẹn, khoảng (\\d+) kg bã: (.+)\\.', (m, a, b, c) => `Today and tomorrow: ${a} confirmed stops, about ${b} kg: ${c}.`),
+    P('(\\d+) yêu cầu đang chờ xác nhận: (.+)\\.', (m, a, b) => `${a} requests awaiting confirmation: ${tr(b)}.`),
+    P('(.+) gửi nhiều nhất: (.+) kg\\.', (m, a, b) => `${a} gives the most: ${b} kg.`),
+    P('Xe thu gom tới (.+) lúc (\\d+:\\d+), (.+)\\. Bạn xem xe trên bản đồ ở trang Quán của tôi nhé\\.', (m, a, b, c) => `The truck reaches ${a} at ${b}, ${tr(c)}. Track it on the map under My café.`),
+    P('Lịch (.+), khung (.+) đang chờ đội thu gom xác nhận giờ\\.', (m, a, b) => `The ${tr(a)} pickup (${tr(b)}) is awaiting confirmation.`),
+    P('Quán đang có (\\d+) điểm xanh, đã gửi tổng (.+) kg bã qua (\\d+) lần thu gom\\.', (m, a, b, c) => `Your café has ${a} green points, with ${b} kg given over ${c} pickups.`),
+    P('Với (\\d+) điểm, quán đổi được: (.+)\\.', (m, a, b) => `With ${a} points you can redeem: ${b.split('; ').map(tr).join('; ')}.`),
+    P('Quán có (\\d+) điểm, cần ít nhất 100 điểm để đổi túi vải\\.', (m, a) => `You have ${a} points; the tote bag needs 100.`),
+    P('Quán đã gửi (.+) kg bã\\.', (m, a) => `Your café has given ${a} kg.`),
+    P('Đơn gần nhất: (.+) × (\\d+), (.+)\\. Bạn có (\\d+) đơn đang xử lý\\.', (m, a, b, c, d) => `Latest order: ${tr(a)} × ${b}, ${tr(c.charAt(0).toUpperCase() + c.slice(1)).toLowerCase()}. You have ${d} order(s) in progress.`),
+    P('Giỏ có (\\d+) sản phẩm, tổng (.+?)( \\(đã trừ XANH20\\))?\\.', (m, a, b, c) => `Your cart has ${a} item(s), total ${b}${c ? ' (XANH20 applied)' : ''}.`),
+    P('Trường có (\\d+) yêu cầu workshop\\. Gần nhất: (.+), (\\d+) học sinh, (.+)\\.', (m, a, b, c, d) => `Your school has ${a} workshop request(s). Next: ${tr(b)}, ${c} students, ${d === 'đã chốt lịch' ? 'confirmed' : 'awaiting a call to confirm'}.`),
+    P('Đã nhận (\\d+) đơn, tổng (.+)\\. COFFEENERGY sẽ gọi xác nhận\\.', (m, a, b) => `Received ${a} order(s), total ${b}. COFFEENERGY will call to confirm.`),
+    P('Đã nhận đơn (.+) × (\\d+), tổng (.+)\\.', (m, a, b, c) => `Order received: ${tr(a)} × ${b}, total ${c}.`),
+    P('Đơn mới từ (.+): (.+)\\.', (m, a, b) => `New order from ${a}: ${b}.`),
+    P('(.+) \\((.+)\\) đặt lịch thu gom (.+), (.+)\\.', (m, a, b, c, d) => `${a} (${b}) booked a pickup ${tr(c)}, ${tr(d)}.`),
+    P('(.+) đặt lịch thu gom (.+)\\.', (m, a, b) => `${a} booked a pickup ${tr(b.replace(' (lặp 4 tuần)', ''))}${b.includes('lặp 4 tuần') ? ' (weekly × 4)' : ''}.`),
+    P('Đội thu gom sẽ đến lúc (.+), (.+)\\.', (m, a, b) => `The team will arrive at ${a}, ${tr(b)}.`),
+    P('Đã thu (.+) kg bã, \\+(\\d+) điểm xanh\\.', (m, a, b) => `Collected ${a} kg, +${b} green points.`),
+    P('Đơn (.+) × (\\d+): (.+)\\.', (m, a, b, c) => `Order ${tr(a)} × ${b}: ${tr(c.charAt(0).toUpperCase() + c.slice(1)).toLowerCase()}.`),
+    P('(.+) đã huỷ lịch (.+)\\.', (m, a, b) => `${a} cancelled the ${tr(b)} pickup.`),
+    P('(.+) đổi “(.+)”\\. Mang theo lần thu gom tới\\.', (m, a, b) => `${a} redeemed “${tr(b)}”. Bring it on the next pickup.`),
+    P('Đã chốt lịch workshop tại (.+), (.+)\\.', (m, a, b) => `Workshop confirmed at ${a}, ${tr(b)}.`),
+    P('(.+) gửi yêu cầu workshop( ngày (.+))?\\.', (m, a, b, c) => `${a} requested a workshop${c ? ' on ' + tr(c) : ''}.`),
+    P('Bạn đã đăng ký nhận tin “(.+)”\\.', (m, a) => `You signed up for news on “${tr(a)}”.`),
+    P('Lịch (.+) chưa sắp xếp được\\. Đội thu gom sẽ gọi để hẹn ngày khác\\.', (m, a) => `We couldn’t schedule ${tr(a)}. The team will call to rebook.`),
+    P('Đã hẹn (.+) lúc (.+)', (m, a, b) => `Booked ${a} at ${b}`),
+    P('Đã ghi (.+) kg · \\+(\\d+) điểm cho (.+)', (m, a, b, c) => `Recorded ${a} kg · +${b} points for ${c}`),
+    P('Xe đã tới (.+)', (m, a) => `Truck reached ${a}`),
+    P('Đã ghi nhận\\. Sprouty sẽ báo bạn khi “(.+)” ra mắt\\.', (m, a) => `Noted. Sprouty will tell you when “${tr(a)}” launches.`),
+    P('Tổng (.+)\\. Chúng mình sẽ gọi (.+) để xác nhận và giao hàng\\.', (m, a, b) => `Total ${a}. We’ll call ${b} to confirm and deliver.`),
+    P('(.+), (.+) · khoảng (\\d+) kg( · lặp lại 4 tuần)?\\. Đội thu gom sẽ xác nhận giờ đến\\.', (m, a, b, c, d) => `${tr(a)}, ${tr(b)} · about ${c} kg${d ? ' · weekly × 4' : ''}. The team will confirm the arrival time.`),
+    P('Cảm ơn (.+)\\. Chúng mình sẽ gọi (.+) trong 1–2 ngày để chốt lịch\\.', (m, a, b) => `Thank you, ${a}. We’ll call ${b} within 1–2 days to confirm.`),
+    P('(.+) · (.+), (.+) · khoảng (\\d+) kg\\. Đội thu gom sẽ gọi (.+) để xác nhận giờ đến\\. Mã yêu cầu', (m, a, b, c, d, e) => `${a} · ${tr(b)}, ${tr(c)} · about ${d} kg. The team will call ${e} to confirm. Request ID`),
+    P('(.+) × (\\d+) · tổng (.+)\\. Chúng mình sẽ gọi (.+) để xác nhận\\. Mã đơn', (m, a, b, c, d) => `${tr(a)} × ${b} · total ${c}. We’ll call ${d} to confirm. Order ID`),
+    P('Vừa ghé (.+), đang tới (.+)', (m, a, b) => `Just left ${a}, heading to ${b}`),
+    P('(.+) km · xuất phát 07:00 · về (\\d+:\\d+)( · ước tính)?', (m, a, b, c) => `${a} km · departs 07:00 · back ${b}${c ? ' · estimated' : ''}`),
+    P('Tuyến theo đường phố thật \\(OSRM\\)\\. Mỗi quán dừng khoảng (\\d+) phút để cân bã\\. Xe chạy trên bản đồ là mô phỏng\\.', (m, a) => `Route follows real streets (OSRM). About ${a} min per café to weigh. The moving truck is simulated.`),
+    P('Không gọi được dịch vụ chỉ đường, đang nối thẳng các điểm\\. Mỗi quán dừng khoảng (\\d+) phút để cân bã\\. Xe chạy trên bản đồ là mô phỏng\\.', (m, a) => `Routing service unavailable, connecting stops directly. About ${a} min per café to weigh. The moving truck is simulated.`),
+    P('Dùng (\\d+) điểm để đổi “(.+)”\\. Bạn còn lại (-?\\d+) điểm\\.', (m, a, b, c) => `Use ${a} points for “${tr(b)}”. You’ll have ${c} left.`),
+    P('(.+) · khoảng (\\d+) kg bã', (m, a, b) => `${a} · about ${b} kg of grounds`),
+    P('(\\d+) học sinh', (m, a) => `${a} students`),
+    P('(~?[\\d,.]+ kg) · gọi', (m, a) => `${a} · call`),
+    P('từ (.+đ)', (m, a) => `from ${a}`),
+    P('Chủ quán (.+?)( · demo)?', (m, a, b) => `Owner, ${a}${b || ''}`),
+    P('(.+) · demo', (m, a) => `${tr(a)} · demo`),
+    P('th(\\d+)',(m, a) => ['', 'Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'][+a] || m)
+  ];
+})();
+
+/* ---------- Ngôn ngữ: Tiếng Việt / English ----------
+   Nội dung viết bằng tiếng Việt. Khi chọn English, mọi đoạn chữ khớp từ điển
+   (kể cả nội dung dashboard sinh ra sau) được thay bằng bản tiếng Anh; các câu
+   có số liệu dịch theo mẫu (PAT). Chọn lại Tiếng Việt thì trả về nguyên văn. */
+const EN = window.I18N_EN || {};
+const PAT = (window.I18N_PAT || []).map(([re, en]) => [new RegExp('^' + re + '$'), en]);
+let LANG = LSget('lang', 'vi');
+const T = (vi, en) => LANG === 'en' ? en : vi;
+const ORIG = new WeakMap();
+function trText(vi) {
+  const k = vi.trim(); if (!k) return null;
+  if (EN[k] != null) return vi.replace(k, EN[k]);
+  for (const [re, en] of PAT) { const m = k.match(re); if (m) return vi.replace(k, k.replace(re, en)); }
+  const f = window.I18N_SUBFALLBACK && I18N_SUBFALLBACK(k); if (f) return vi.replace(k, f);
+  return null;
+}
+const ATTRS = ['placeholder', 'aria-label', 'title', 'alt'];
+function trNode(root) {
+  const en = LANG === 'en';
+  const w = document.createTreeWalker(root, NodeFilter.SHOW_TEXT, { acceptNode: n => { const p = n.parentNode; return p && !/^(SCRIPT|STYLE|TEXTAREA)$/.test(p.nodeName) && !p.closest?.('[data-noi18n]') ? 1 : 2; } });
+  let n; const list = []; while ((n = w.nextNode())) list.push(n);
+  for (const t of list) {
+    if (en) { const vi = ORIG.has(t) ? ORIG.get(t) : t.nodeValue; const out = trText(vi); if (out != null) { if (!ORIG.has(t)) ORIG.set(t, vi); if (t.nodeValue !== out) t.nodeValue = out; } }
+    else if (ORIG.has(t)) { t.nodeValue = ORIG.get(t); ORIG.delete(t); }
+  }
+  const els = root.nodeType === 1 ? [root, ...root.querySelectorAll('[placeholder],[aria-label],[title],img[alt]')] : [];
+  for (const el of els) for (const a of ATTRS) {
+    if (!el.hasAttribute?.(a)) continue; const key = 'i18n' + a.replace('-', '');
+    const vi = el.dataset[key] ?? el.getAttribute(a);
+    if (en) { const out = trText(vi); if (out != null) { el.dataset[key] = vi; el.setAttribute(a, out); } }
+    else if (el.dataset[key] != null) { el.setAttribute(a, el.dataset[key]); delete el.dataset[key]; }
+  }
+}
+let trQ = null, trBusy = false;
+const mo = new MutationObserver(ms => {
+  if (LANG !== 'en' || trBusy) return;
+  trQ = trQ || new Set(); ms.forEach(m => m.addedNodes.forEach(n => trQ.add(n.nodeType === 3 ? n.parentNode : n)));
+  requestAnimationFrame(() => { if (!trQ) return; const q = trQ; trQ = null; trBusy = true; q.forEach(n => n && n.isConnected && trNode(n)); trBusy = false; });
+});
+mo.observe(document.body, { childList: true, subtree: true });
+function setLang(l) {
+  LANG = l === 'en' ? 'en' : 'vi'; LS.set('lang', LANG);
+  document.documentElement.lang = LANG;
+  $$('[data-lang]').forEach(b => { b.classList.toggle('on', b.dataset.lang === LANG); b.setAttribute('aria-pressed', b.dataset.lang === LANG); });
+  trBusy = true; trNode(document.body); trBusy = false;
+  // nội dung theo ngôn ngữ do code tạo ra: vẽ lại
+  if (!$('#app').hidden && page) refresh();
+  // phần dựng bằng T(): vẽ lại theo ngôn ngữ mới
+  try { renderInstall(); if (!$('#modal').hidden && $('#mbox .ag-head')) openGuide(); const n = $('.cf-nudge'); if (n) { n.remove(); IS.nudged = false; nudge(0); } } catch (e) {}
+  const c = $('#chat'); if (c) delete c.dataset.ctx;
+}
+document.addEventListener('click', e => { const b = e.target.closest('[data-lang]'); if (b && !b.closest('.mbox')) setLang(b.dataset.lang); });
+// áp ngôn ngữ đã chọn khi mở trang
+$$('[data-lang]').forEach(b => { b.classList.toggle('on', b.dataset.lang === LANG); b.setAttribute('aria-pressed', b.dataset.lang === LANG); });
+if (LANG === 'en') { document.documentElement.lang = 'en'; setTimeout(() => { trBusy = true; trNode(document.body); trBusy = false; }, 0); }
 
 renderMe();
 scInit(); $('.sc-bg').classList.toggle('dk', TH === 'dark'); scKick(); appRoute();
