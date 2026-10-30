@@ -2429,8 +2429,8 @@ function makeMap(el, { zoom = 13, interactive = true } = {}) {
   const map = L.map(el, { zoomControl: interactive, scrollWheelZoom: false, dragging: interactive, attributionControl: true }).setView(HN.center, zoom);
   let errs = 0, fb = null;
   const SRC = [
-    ['https://{s}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}{r}.png', '© OpenStreetMap · © CARTO', 'abcd'],
-    ['https://tile.openstreetmap.org/{z}/{x}/{y}.png', '© OpenStreetMap', '']
+    ['https://tile.openstreetmap.org/{z}/{x}/{y}.png', '© OpenStreetMap', ''],
+    ['https://server.arcgisonline.com/ArcGIS/rest/services/World_Street_Map/MapServer/tile/{z}/{y}/{x}', 'Tiles © Esri', '']
   ];
   let si = 0, ok = false, tiles;
   const useSrc = () => {
