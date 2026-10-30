@@ -243,12 +243,47 @@ textarea.inp{min-height:76px;resize:vertical}
 .mapbox.map-fb{background:#EEF1E8}
 @media (max-width:600px){.mapbox{height:340px}}
 .trial{margin-top:16px;display:grid;gap:14px}
-.trial-in{display:grid;grid-template-columns:minmax(0,1.25fr) minmax(0,1fr);gap:10px}
-.trial-main{aspect-ratio:3/2}
-.trial-main .cap{position:absolute;left:10px;bottom:10px;background:rgba(0,0,0,.6);color:#fff;font-size:.8em;font-weight:600;padding:4px 10px;border-radius:999px}
-.trial-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px}
-.trial-grid .zoom{aspect-ratio:4/3;border-radius:10px}
-@media (max-width:760px){.trial-in{grid-template-columns:1fr}}
+/* trình chiếu ảnh buổi chuyên đề */
+.show{display:grid;grid-template-columns:minmax(0,1.55fr) minmax(260px,1fr);gap:clamp(14px,2vw,26px);align-items:stretch;outline:none}
+.show-stage{position:relative;aspect-ratio:3/2;border-radius:18px;overflow:hidden;background:#1a140f;isolation:isolate;touch-action:pan-y}
+.show .sl{position:absolute;inset:0;margin:0;opacity:0;transition:opacity .9s ease;z-index:0}
+.show .sl.on{opacity:1;z-index:1}
+.show .sl img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;transform:scale(1.001);will-change:transform}
+.show .sl.on img{animation:kb 6.5s ease-out forwards}
+.show .sl:nth-child(even).on img{animation-name:kb2}
+@keyframes kb{from{transform:scale(1.001) translate(0,0)}to{transform:scale(1.07) translate(-1.2%,-1%)}}
+@keyframes kb2{from{transform:scale(1.07) translate(1%,.8%)}to{transform:scale(1.001) translate(0,0)}}
+.show-stage::after{content:"";position:absolute;inset:auto 0 0;height:30%;background:linear-gradient(transparent,rgba(0,0,0,.35));z-index:2;pointer-events:none}
+.show-nav,.show-zoom{position:absolute;z-index:3;width:44px;height:44px;border-radius:50%;display:grid;place-items:center;background:rgba(255,255,255,.88);color:#22180f;box-shadow:0 6px 18px -6px rgba(0,0,0,.45);opacity:0;transition:opacity .25s,transform .25s}
+.show-nav svg,.show-zoom svg{width:20px;height:20px}
+.show-nav.prev{left:12px;top:50%;transform:translateY(-50%)}.show-nav.next{right:12px;top:50%;transform:translateY(-50%)}
+.show-zoom{right:12px;bottom:12px}
+.show-stage:hover .show-nav,.show-stage:hover .show-zoom,.show:focus-within .show-nav,.show:focus-within .show-zoom{opacity:1}
+.show-nav:hover{background:#fff}
+.show-side{display:flex;flex-direction:column;gap:14px;min-width:0}
+.show-count{display:flex;align-items:baseline;gap:6px;font-family:var(--display)}
+.show-count b{font-size:2.6em;line-height:1;color:var(--me)}
+.show-count span{color:var(--muted);font-weight:600}
+.show-play{margin-left:auto;align-self:center;width:38px;height:38px;border-radius:50%;display:grid;place-items:center;border:1px solid var(--line);background:var(--surface);color:var(--ink)}
+.show-play svg{width:16px;height:16px}.show-play .ic-play{display:none}
+.show.paused .show-play .ic-pause{display:none}.show.paused .show-play .ic-play{display:block}
+.show-caps{position:relative;min-height:5.4em}
+.show .sc{position:absolute;inset:0 0 auto;opacity:0;transform:translateY(8px);transition:opacity .5s,transform .5s;pointer-events:none}
+.show .sc.on{opacity:1;transform:none;position:relative}
+.show .sc b{display:block;font-size:1.18em;line-height:1.3}
+.show .sc p{color:var(--ink-2);margin-top:4px;line-height:1.55;font-size:.94em}
+.show-thumbs{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:8px;margin-top:auto}
+.show .th{position:relative;aspect-ratio:4/3;border-radius:10px;overflow:hidden;padding:0;opacity:.55;transition:opacity .25s,transform .25s;outline-offset:2px}
+.show .th img{width:100%;height:100%;object-fit:cover;display:block}
+.show .th:hover{opacity:.9}
+.show .th.on{opacity:1;box-shadow:0 0 0 2px var(--me)}
+.show .th i{position:absolute;left:0;bottom:0;height:3px;width:0;background:var(--tag)}
+.show .th.on i{animation:prog var(--dur,5s) linear forwards}
+.show.paused .th.on i,.show.hold .th.on i{animation-play-state:paused}
+@keyframes prog{to{width:100%}}
+@media (max-width:860px){.show{grid-template-columns:1fr}.show-thumbs{grid-template-columns:repeat(7,minmax(0,1fr));gap:6px}.show-caps{min-height:4.6em}.show-nav,.show-zoom{opacity:1;width:38px;height:38px}.show-count b{font-size:2em}}
+@media (prefers-reduced-motion:reduce){.show .sl,.show .sc{transition:none}.show .sl.on img{animation:none}}
+html.rm .show .sl.on img{animation:none}
 .proof{display:grid;grid-template-columns:minmax(0,1.3fr) minmax(0,1fr);gap:14px}
 .cert{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:16px;align-items:start}
 .cert-imgs{display:grid;grid-template-columns:1fr 1fr;gap:8px}
@@ -526,7 +561,7 @@ html.cf-standalone .cf-dl,html.cf-standalone .cf-nudge{display:none!important}
 .cf-nudge{position:fixed;z-index:70;left:12px;right:12px;bottom:calc(16px + env(safe-area-inset-bottom,0px));max-width:430px;margin:0 auto;display:flex;align-items:center;gap:12px;padding:10px 10px 10px 12px;border-radius:20px;background:color-mix(in srgb,var(--surface) 97%,transparent);color:var(--ink);border:1px solid var(--line);box-shadow:0 16px 40px -16px rgba(0,0,0,.45);transform:translateY(20px);opacity:0;transition:.3s;font-size:14px}
 .cf-nudge.on{transform:none;opacity:1}
 body.in-app .cf-nudge{bottom:calc(84px + env(safe-area-inset-bottom,0px))}
-.cf-nudge.desk{left:20px;right:auto;bottom:20px;margin:0}
+.cf-nudge.desk{left:max(18px,env(safe-area-inset-left,0px));right:auto;bottom:calc(86px + env(safe-area-inset-bottom,0px));margin:0}
 body.in-app .cf-nudge.desk{bottom:20px}
 .cf-nudge img{width:42px;height:42px;border-radius:10px;flex:none}
 .cf-nudge b{display:block}.cf-nudge span{display:block;font-size:.84em;color:var(--muted)}
@@ -1573,15 +1608,17 @@ svg.leaflet-image-layer.leaflet-interactive path {
           <div style="display:flex;gap:10px;flex-wrap:wrap;margin-top:18px"><button class="btn btn-p" type="button" data-act="workshop">Đặt lịch workshop</button><button class="btn btn-s" type="button" data-act="buy" data-id="class">Mua bộ 10 kit cho lớp</button></div>
           <div class="card trial">
             <div class="map-h"><div><b>Đã thử nghiệm tại 3 trường tiểu học và THCS ở Hà Nội</b><span class="note">Học sinh nghe giới thiệu về bã cà phê, tự lắp thử pin và nhận giấy khen.</span></div></div>
-            <div class="trial-in">
-              <button class="zoom trial-main" type="button" data-zoom="event" aria-label="Phóng to ảnh"><img data-img="event" alt="Học sinh Trường Tiểu học Đồng Quang nhận giấy khen trong buổi chuyên đề cùng COFFEENERGY" loading="lazy"><span class="cap">Trường Tiểu học Đồng Quang</span></button>
-              <div class="trial-grid">
-                <button class="zoom" type="button" data-zoom="school1" aria-label="Phóng to ảnh"><img data-img="school1" alt="Thầy cô và đội COFFEENERGY tại trường THCS" loading="lazy"></button>
-                <button class="zoom" type="button" data-zoom="school4" aria-label="Phóng to ảnh"><img data-img="school4" alt="Học sinh tự lắp thử pin trên bàn thí nghiệm" loading="lazy"></button>
-                <button class="zoom" type="button" data-zoom="school2" aria-label="Phóng to ảnh"><img data-img="school2" alt="Học sinh giơ tay phát biểu trong buổi chuyên đề" loading="lazy"></button>
-                <button class="zoom" type="button" data-zoom="school3" aria-label="Phóng to ảnh"><img data-img="school3" alt="Học sinh nhận quà từ COFFEENERGY" loading="lazy"></button>
-                <button class="zoom" type="button" data-zoom="school5" aria-label="Phóng to ảnh"><img data-img="school5" alt="Học sinh trả lời câu hỏi về môi trường" loading="lazy"></button>
-                <button class="zoom" type="button" data-zoom="school6" aria-label="Phóng to ảnh"><img data-img="school6" alt="Sân trường đông học sinh tham gia" loading="lazy"></button>
+            <div class="show" id="trialShow" tabindex="0" aria-roledescription="carousel" aria-label="Ảnh buổi chuyên đề tại trường">
+              <div class="show-stage">
+                <figure class="sl on" data-i="0"><img data-img="event" alt="Học sinh Trường Tiểu học Đồng Quang nhận giấy khen trong buổi chuyên đề cùng COFFEENERGY" decoding="async"></figure><figure class="sl" data-i="1"><img data-img="school1" alt="Thầy cô và đội COFFEENERGY tại trường THCS" loading="lazy" decoding="async"></figure><figure class="sl" data-i="2"><img data-img="school4" alt="Học sinh tự lắp thử pin trên bàn thí nghiệm" loading="lazy" decoding="async"></figure><figure class="sl" data-i="3"><img data-img="school2" alt="Học sinh giơ tay phát biểu trong buổi chuyên đề" loading="lazy" decoding="async"></figure><figure class="sl" data-i="4"><img data-img="school3" alt="Học sinh nhận quà từ COFFEENERGY" loading="lazy" decoding="async"></figure><figure class="sl" data-i="5"><img data-img="school5" alt="Học sinh trả lời câu hỏi về môi trường" loading="lazy" decoding="async"></figure><figure class="sl" data-i="6"><img data-img="school6" alt="Sân trường đông học sinh tham gia" loading="lazy" decoding="async"></figure>
+                <button class="show-nav prev" type="button" data-show="prev" aria-label="Ảnh trước"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M15 5l-7 7 7 7"/></svg></button>
+                <button class="show-nav next" type="button" data-show="next" aria-label="Ảnh tiếp"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M9 5l7 7-7 7"/></svg></button>
+                <button class="show-zoom" type="button" data-show="zoom" aria-label="Phóng to ảnh"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><circle cx="11" cy="11" r="6.5"/><path d="M16 16l4.5 4.5M11 8v6M8 11h6"/></svg></button>
+              </div>
+              <div class="show-side">
+                <div class="show-count"><b id="showN">01</b><span>/ 07</span><button class="show-play" type="button" data-show="play" aria-label="Tạm dừng trình chiếu" aria-pressed="true"><svg class="ic-pause" viewBox="0 0 24 24" fill="currentColor"><rect x="6" y="5" width="4" height="14" rx="1"/><rect x="14" y="5" width="4" height="14" rx="1"/></svg><svg class="ic-play" viewBox="0 0 24 24" fill="currentColor"><path d="M7 5v14l12-7z"/></svg></button></div>
+                <div class="show-caps" aria-live="polite"><div class="sc on" data-i="0"><b>Trường Tiểu học Đồng Quang</b><p>Học sinh nhận giấy khen sau buổi chuyên đề cùng COFFEENERGY.</p></div><div class="sc" data-i="1"><b>Thầy cô đồng hành</b><p>Ban giám hiệu, thầy cô và đội COFFEENERGY trước buổi chuyên đề.</p></div><div class="sc" data-i="2"><b>Tự tay lắp pin</b><p>Các nhóm học sinh lắp thử pin từ bã cà phê ngay trên bàn thí nghiệm.</p></div><div class="sc" data-i="3"><b>Ai cũng muốn trả lời</b><p>Cả hội trường giơ tay khi được hỏi bã cà phê thành pin như thế nào.</p></div><div class="sc" data-i="4"><b>Quà cho bạn nhỏ</b><p>Học sinh trả lời đúng nhận quà từ COFFEENERGY.</p></div><div class="sc" data-i="5"><b>Hỏi đáp môi trường</b><p>Học sinh trả lời câu hỏi về rác thải và năng lượng sạch.</p></div><div class="sc" data-i="6"><b>Cả sân trường tham gia</b><p>Buổi ngoài trời với hàng trăm học sinh cùng nghe và chơi.</p></div></div>
+                <div class="show-thumbs"><button type="button" class="th on" data-i="0" aria-label="Ảnh 1: Trường Tiểu học Đồng Quang"><img data-img="event" alt="" loading="lazy"><i></i></button><button type="button" class="th" data-i="1" aria-label="Ảnh 2: Thầy cô đồng hành"><img data-img="school1" alt="" loading="lazy"><i></i></button><button type="button" class="th" data-i="2" aria-label="Ảnh 3: Tự tay lắp pin"><img data-img="school4" alt="" loading="lazy"><i></i></button><button type="button" class="th" data-i="3" aria-label="Ảnh 4: Ai cũng muốn trả lời"><img data-img="school2" alt="" loading="lazy"><i></i></button><button type="button" class="th" data-i="4" aria-label="Ảnh 5: Quà cho bạn nhỏ"><img data-img="school3" alt="" loading="lazy"><i></i></button><button type="button" class="th" data-i="5" aria-label="Ảnh 6: Hỏi đáp môi trường"><img data-img="school5" alt="" loading="lazy"><i></i></button><button type="button" class="th" data-i="6" aria-label="Ảnh 7: Cả sân trường tham gia"><img data-img="school6" alt="" loading="lazy"><i></i></button></div>
               </div>
             </div>
           </div>
@@ -2535,6 +2572,53 @@ new IntersectionObserver(es => {
   else LM.truck?.pause();
 }, { rootMargin: '120px' }).observe($('#landMap'));
 
+/* Trình chiếu ảnh buổi chuyên đề: tự chuyển, mờ dần + zoom chậm, chỉ chạy khi đang nhìn thấy */
+(() => {
+  const root = $('#trialShow'); if (!root) return;
+  const KEYS = ['event', 'school1', 'school4', 'school2', 'school3', 'school5', 'school6'];
+  const DUR = 5200, n = KEYS.length;
+  const sl = $$('.sl', root), sc = $$('.sc', root), th = $$('.th', root);
+  let i = 0, timer = null, visible = false, hold = false, paused = false;
+  root.style.setProperty('--dur', DUR + 'ms');
+  const go = k => {
+    i = (k + n) % n;
+    [sl, sc, th].forEach(list => list.forEach((el, j) => el.classList.toggle('on', j === i)));
+    th.forEach((el, j) => el.setAttribute('aria-current', j === i ? 'true' : 'false'));
+    // khởi động lại thanh tiến trình và hiệu ứng zoom
+    const bar = th[i].querySelector('i'); bar.style.animation = 'none'; void bar.offsetWidth; bar.style.animation = '';
+    const im = sl[i].querySelector('img'); im.style.animation = 'none'; void im.offsetWidth; im.style.animation = '';
+    $('#showN').textContent = String(i + 1).padStart(2, '0');
+    schedule();
+  };
+  const running = () => visible && !hold && !paused && !reduced() && !document.hidden;
+  function schedule() { clearTimeout(timer); if (running()) timer = setTimeout(() => go(i + 1), DUR); }
+  const sync = () => { root.classList.toggle('hold', hold); root.classList.toggle('paused', paused || reduced()); schedule(); };
+  root.addEventListener('click', e => {
+    const t = e.target.closest('[data-show],.th'); if (!t) return;
+    if (t.classList.contains('th')) go(+t.dataset.i);
+    else if (t.dataset.show === 'prev') go(i - 1);
+    else if (t.dataset.show === 'next') go(i + 1);
+    else if (t.dataset.show === 'play') { paused = !paused; t.setAttribute('aria-pressed', String(!paused)); t.setAttribute('aria-label', paused ? 'Chạy trình chiếu' : 'Tạm dừng trình chiếu'); sync(); }
+    else if (t.dataset.show === 'zoom') { const alt = sl[i].querySelector('img').alt; openModal(`<div class="lb"><img src="${imgSrc(KEYS[i])}" alt="${esc(alt)}"><p class="note">${esc(alt)}</p></div>`); }
+  });
+  // bấm vào ảnh lớn cũng phóng to
+  $('.show-stage', root).addEventListener('click', e => { if (!e.target.closest('button') && !moved) $('[data-show=zoom]', root).click(); });
+  root.addEventListener('keydown', e => { if (e.key === 'ArrowLeft') { e.preventDefault(); go(i - 1); } else if (e.key === 'ArrowRight') { e.preventDefault(); go(i + 1); } });
+  // rê chuột hoặc đang chọn bằng bàn phím: tạm giữ ảnh
+  root.addEventListener('pointerenter', e => { if (e.pointerType === 'mouse') { hold = true; sync(); } });
+  root.addEventListener('pointerleave', e => { if (e.pointerType === 'mouse') { hold = false; sync(); } });
+  // vuốt trên điện thoại
+  let x0 = null, moved = false;
+  const st = $('.show-stage', root);
+  st.addEventListener('pointerdown', e => { x0 = e.clientX; moved = false; });
+  st.addEventListener('pointerup', e => { if (x0 == null) return; const dx = e.clientX - x0; x0 = null; if (Math.abs(dx) > 40) { moved = true; go(i + (dx < 0 ? 1 : -1)); setTimeout(() => moved = false, 50); } });
+  new IntersectionObserver(es => { visible = es[0].isIntersecting; sync(); }, { threshold: .35 }).observe(root);
+  document.addEventListener('visibilitychange', sync);
+  // tải trước ảnh tiếp theo
+  sl.forEach(f => { const im = f.querySelector('img'); im.loading = 'eager'; });
+  sync();
+})();
+
 /* ======================================================================
    APP: dashboard theo vai trò (khách, chủ quán, trường học, đội thu gom)
    Dữ liệu lưu trên máy (localStorage). Tài khoản demo có sẵn dữ liệu mẫu.
@@ -3129,7 +3213,7 @@ window.I18N_EN = {
   'Học sinh tự lắp pin từ bã cà phê, đo dòng điện và thắp sáng đèn LED. Bài học gắn với năng lượng tái tạo và kinh tế tuần hoàn.': 'Students build coffee-ground batteries, measure current and light an LED, linking to renewable energy and the circular economy.', 'Thêm bộ 10 kit vào giỏ': 'Add the 10-kit pack to cart', 'Kit đã đặt': 'Kits ordered', 'Workshop sắp tới': 'Upcoming workshops', 'Học sinh tham gia': 'Students taking part', 'Giá workshop': 'Workshop price', 'triệu đ/buổi': 'million đ/session', 'Giáo án 2 tiết đi kèm bộ kit': '2-period lesson plan included', 'Vì sao bã cà phê thành pin được?': 'Why can coffee grounds become a battery?', 'Bã giàu carbon hữu cơ. Nung yếm khí 600–700°C tạo than xốp làm điện cực.': 'Grounds are rich in organic carbon. Oxygen-free heating at 600–700°C makes porous carbon electrodes.', 'So sánh với pin chanh, pin khoai tây': 'Compare with lemon and potato batteries', 'Học sinh thấy vì sao vật liệu điện cực quyết định dòng điện.': 'Students see why electrode material sets the current.', 'Lắp 5 cell nối tiếp': 'Wire 5 cells in series', 'Nối các cell trong kit, đo điện áp từng bước bằng đồng hồ vạn năng.': 'Connect the cells and measure voltage step by step with a multimeter.', 'Thắp sáng đèn LED': 'Light the LED', 'Ghi lại thời gian đèn sáng, thảo luận cách cải tiến.': 'Record how long it stays lit and discuss improvements.', 'Kinh tế tuần hoàn': 'Circular economy', 'Rác của quán cà phê trở thành nguyên liệu. Học sinh đề xuất ý tưởng tái chế khác.': 'Café waste becomes raw material. Students propose other recycling ideas.', 'Chưa đặt workshop': 'No workshop booked', 'Một buổi 1–2 triệu đồng, kèm kit cho các nhóm.': '1–2 million VND per session, kits for each group included.', 'Chờ gọi chốt lịch': 'Awaiting call to confirm', 'Đã chốt lịch': 'Confirmed', 'Học sinh mang bã cà phê ở nhà đến lớp, tự làm và đo pin. COFFEENERGY gọi lại trong 1–2 ngày để chốt lịch và báo giá.': 'Students bring grounds from home, build and measure batteries. COFFEENERGY will call within 1–2 days to confirm and quote.', 'Cấp học': 'School level', 'THCS': 'Middle school', 'THPT': 'High school', 'Trung tâm STEM / CLB': 'STEM center / club', 'Yêu cầu đã gửi': 'Requests sent', 'Chưa có yêu cầu nào': 'No requests yet', 'Yêu cầu bạn gửi sẽ hiện ở đây.': 'Your requests will appear here.',
   // đội thu gom
   'Gọi quán trước 10 phút, cân bã ngay tại quán và nhập số ký.': 'Call the café 10 minutes ahead, weigh on site and enter the weight.', 'Chờ xác nhận ': 'Awaiting confirmation', 'Hẹn hôm nay': 'Booked today', 'Bã thu tháng này': 'Collected this month', 'túi': 'bags', 'Gọi': 'Call', 'Xác nhận giờ đến': 'Confirm arrival time', 'Từ chối': 'Decline', 'Đã thu · nhập số ký': 'Collected · enter weight', 'Đổi giờ': 'Change time', 'Không có yêu cầu mới.': 'No new requests.', 'Chưa có lịch đã hẹn.': 'Nothing confirmed yet.', 'Điểm cần đến': 'Stops', 'Bã dự kiến': 'Expected grounds', 'Quãng đường': 'Distance', 'Xong dự kiến': 'Expected finish', 'Bản đồ lộ trình': 'Route map', 'Cho xe chạy': 'Start the truck', 'Cho xe chạy tiếp': 'Resume', 'Tạm dừng': 'Pause', 'Chạy lại': 'Run again', 'Về điểm xuất phát': 'Back to depot', 'Tốc độ': 'Speed', 'Đang tính tuyến đường…': 'Calculating route…', 'Thứ tự ghé quán': 'Stop order', 'Xe ở điểm tập kết': 'Truck at the depot', 'Đã ghé đủ các quán': 'All cafés visited', 'Điểm tập kết COFFEENERGY': 'COFFEENERGY depot', 'Chưa có điểm nào': 'No stops yet', 'Xác nhận giờ cho các yêu cầu ở Bảng điều phối để lên lộ trình.': 'Confirm times on the dispatch board to build a route.', 'Tổng': 'Total', 'Đã gọi, chốt lịch': 'Called, confirmed', 'Chưa có đơn hàng.': 'No orders yet.', 'Chưa có yêu cầu workshop.': 'No workshop requests.', 'Bản đồ quán tham gia': 'Partner café map', 'Chấm to hơn là quán gửi nhiều bã hơn': 'Bigger dots give more grounds', 'Khu vực': 'Area', 'Điện thoại': 'Phone', 'Lần thu': 'Pickups', 'Tổng bã': 'Total grounds', 'Lịch mở': 'Open', 'Cân được': 'Weighed', 'Giờ đội đến': 'Arrival time', 'Xác nhận và báo quán': 'Confirm and notify café', 'Số ký cân được': 'Weighed (kg)', 'Lưu và cộng điểm': 'Save and credit points', 'Đã thu gom ': 'Collected', 'Đã từ chối yêu cầu': 'Request declined', 'Đã cập nhật đơn': 'Order updated', 'Đã chốt lịch workshop': 'Workshop confirmed', 'Tiền mặt': 'Cash', 'Chuyển khoản': 'Transfer', 'Thu hồi pin cũ': 'Collect old batteries',
-  'Pin sinh học': 'Bio-batteries', 'Cài COFFEENERGY lên điện thoại': 'Install COFFEENERGY on your phone', 'Nhập XANH20 cho đơn pin đầu tiên, giảm 20% kèm túi vải.': 'Enter XANH20 on your first battery order for 20% off and a free tote.', 'Để bã ráo nước và buộc kín túi, đội thu gom cân nhanh hơn.': 'Drain the grounds and tie bags shut so the team can weigh faster.', 'Dặn học sinh mang bã cà phê ở nhà đến buổi workshop.': 'Ask students to bring coffee grounds from home to the workshop.',
+  'Pin sinh học': 'Bio-batteries', 'Thầy cô đồng hành': 'Teachers on board', 'Học sinh nhận giấy khen sau buổi chuyên đề cùng COFFEENERGY.': 'Students receive certificates after the COFFEENERGY session.', 'Ban giám hiệu, thầy cô và đội COFFEENERGY trước buổi chuyên đề.': 'School leaders, teachers and the COFFEENERGY team before the session.', 'Tự tay lắp pin': 'Building batteries by hand', 'Các nhóm học sinh lắp thử pin từ bã cà phê ngay trên bàn thí nghiệm.': 'Student groups build coffee-ground batteries right at the lab table.', 'Ai cũng muốn trả lời': 'Everyone wants to answer', 'Cả hội trường giơ tay khi được hỏi bã cà phê thành pin như thế nào.': 'The whole hall raises hands when asked how grounds become a battery.', 'Quà cho bạn nhỏ': 'Gifts for young learners', 'Học sinh trả lời đúng nhận quà từ COFFEENERGY.': 'Students with the right answers get gifts from COFFEENERGY.', 'Hỏi đáp môi trường': 'Environment Q&A', 'Học sinh trả lời câu hỏi về rác thải và năng lượng sạch.': 'Students answer questions about waste and clean energy.', 'Cả sân trường tham gia': 'The whole schoolyard joins in', 'Buổi ngoài trời với hàng trăm học sinh cùng nghe và chơi.': 'An outdoor session with hundreds of students listening and playing.', 'Ảnh buổi chuyên đề tại trường': 'Photos from school sessions', 'Ảnh trước': 'Previous photo', 'Ảnh tiếp': 'Next photo', 'Tạm dừng trình chiếu': 'Pause slideshow', 'Chạy trình chiếu': 'Play slideshow', 'Cài COFFEENERGY lên điện thoại': 'Install COFFEENERGY on your phone', 'Nhập XANH20 cho đơn pin đầu tiên, giảm 20% kèm túi vải.': 'Enter XANH20 on your first battery order for 20% off and a free tote.', 'Để bã ráo nước và buộc kín túi, đội thu gom cân nhanh hơn.': 'Drain the grounds and tie bags shut so the team can weigh faster.', 'Dặn học sinh mang bã cà phê ở nhà đến buổi workshop.': 'Ask students to bring coffee grounds from home to the workshop.',
   'Đội thu gom đã xác nhận: ngày mai, đến lúc 21:00.': 'The team confirmed: tomorrow at 21:00.', 'Quán Mộc và Sáng Roastery vừa đặt lịch thu gom.': 'Quán Mộc and Sáng Roastery just booked pickups.', 'Đơn Kit STEM “Pin Xanh” × 2 đang được giao.': 'Your STEM Kit “Green Battery” × 2 order is out for delivery.', 'Đã đăng xuất': 'Signed out', 'Hồ Tây': 'West Lake', 'Hồ Gươm': 'Hoan Kiem Lake', 'Sông Hồng': 'Red River', 'Mở form hẹn thu gom ': 'Open the pickup form'
 };
 
@@ -3222,6 +3306,7 @@ window.I18N_EN = {
     P('từ (.+đ)', (m, a) => `from ${a}`),
     P('Chủ quán (.+?)( · demo)?', (m, a, b) => `Owner, ${a}${b || ''}`),
     P('(.+) · demo', (m, a) => `${tr(a)} · demo`),
+    P('Ảnh (\\d+): (.+)', (m, a, b) => `Photo ${a}: ${tr(b)}`),
     P('th(\\d+)',(m, a) => ['', 'Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'][+a] || m)
   ];
 })();
